@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<style>
+    nav {
+        display: flex;
+        top: 0;
+        right: 0;
+        background-color: #334FFF;
+        padding: 15px;
+        justify-content: space-between;
+    }
+
+    .homeNav {
+        margin-left: -10px;
+    }
+
+    .otherNav {
+        margin-right: 10px;
+    }
+
+    nav a {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 16px;
+        margin-left: 20px;
+        /* Add margin to space out the links */
+        transition: color 0.3s;
+        /* Smooth color transition on hover */
+    }
+
+    nav a:hover {
+        color: #020202;
+        /* Change the color on hover */
+    }
+
+    body {
+        margin: 0px;
+    }
+
+    .h2,
+    h2 {
+        font-size: 30px;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    h1,
+    h2,
+    h3 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.1;
+        color: inherit;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .container .jumbotron,
+    .container-fluid .jumbotron {
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+
+    .container .jumbotron,
+    .container-fluid .jumbotron {
+        /* padding-right: 15px;
+    padding-left: 15px; */
+        border-radius: 6px;
+    }
+
+    .jumbotron {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .jumbotron {
+        margin-left: 200px;
+        margin-right: 200px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+        color: inherit;
+        background-color: #eee;
+    }
+
+    .content {
+        display: flex;
+    }
+
+    .logoCol {
+        width: 100%;
+        margin: 10px;
+    }
+
+    .col {
+        margin-left: 150px;
+        float: right;
+        flex: 1;
+        padding: 10px;
+    }
+
+
+
+    .footerRow {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 21px;
+        font-weight: 300;
+        line-height: 1.4;
+        margin-left: 190px;
+        margin-right: 190px;
+    }
+
+    footer {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.4;
+        margin-left: 190px;
+        margin-right: 190px;
+        text-align: center;
+    }
+
+    .jumbotron p,
+    h3 {
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        color: rgb(51, 51, 51);
+        font-size: 23px;
+        font-family: Arial;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Style for the dropdown button */
+    .dropdown-button {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    /* Style for the dropdown content (hidden by default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 120px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    /* Style for the dropdown options */
+    .dropdown-content a {
+        color: #333;
+        padding: 12px 16px;
+        padding-left: 0px;
+        text-decoration: none;
+        display: block;
+    }
+
+    /*JobDetail.html */
+    .job-header {
+        display: flex;
+    }
+
+    .company-about-content {
+        margin: 15px;
+        font-family: cursive;
+        font-weight: bold;
+    }
+
+    .overall-job-details {
+        display: flex;
+    }
+
+    .left-side-details {
+        width: 50%;
+        margin: 15px;
+        font-size: 20px;
+    }
+
+    .left-side-details h2 {
+        color: #000000;
+        font-weight: bold;
+    }
+
+
+    .vl {
+        border-left: 1px solid #c3c3c3;
+        min-height: auto;
+        margin-right: 10px;
+    }
+
+    .job-details-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .job-details-table th,
+    .job-details-table td {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .job-details-table th {
+        text-align: left;
+        font-size: 20px;
+        width: 30%;
+        color: #000000;
+    }
+
+    .job-details-table td {
+        width: 70%
+    }
+
+    .button-apply-company {
+        background-color: #4CAF50;
+        color: white;
+        padding: 20px 30px;
+        border: none;
+        cursor: pointer;
+        margin: 0;
+        font-size: 18px;
+        margin-left: 300px;
+    }
+
+    .button-apply-company:disabled {
+        background-color: #ccc;
+        color: #888;
+        cursor: not-allowed;
+    }
+
+    .content-job-requirement p {
+        line-height: 1.5;
+    }
+
+    .button-back {
+        display: inline-block;
+        padding: 10px 20px;
+        color: black;
+        /* Adjust the text color to your preference */
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .content-about-us p {
+        line-height: 1.5;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <nav>
+        <div class="homeNav">
+            <a href="/">Home</a>
+        </div>
+        <div class="otherNav">
+            <div class="dropdown">
+                <a class="dropdown-button" onclick="toggleDropdown()">Company</a>
+                <div id="dropdownOptions" class="dropdown-content">
+                    <a href="/register_company">Sign Up</a>
+                    <a href="/login_company">Login</a>
+                </div>
+            </div>
+            <a href="#">Uni Supervisor</a>
+            <a href="#">Admin</a>
+            <a href="/login_student">Student</a>
+        </div>
+
+    </nav>
+</head>
+
+<body>
+    <a href="/displayJobFind" class="button-back"><i class="fa fa-arrow-left" style="font-size:36px"></i></a>
+    <div class="job-header">
+        <div class="company-about-content">
+            <img src="{{ jobs[0].image_url }}" style="width: 250px; height: 150px; position: relative;">
+        </div>
+        <div class="company-about-content">
+            <h1>{{ jobs[0].company_name}}</h1>
+        </div>
+    </div>
+    <hr>
+
+    <form action="/applyCompany" autocomplete="on" name="job" method="POST">
+        <div class="overall-job-details">
+            <input type="hidden" name="apply-job-id" value="{{ jobs[0].job_id }}">
+            <div class="left-side-details">
+                <div class="content-about-us">
+                    <h2>Job Summary</h2>
+                    <p>{{jobs[0].job_description}}</p>
+                </div>
+
+                <div class="content-job-requirement">
+                    <h2>Job Requirement</h2>
+                    <p>{{ jobs[0].job_requirement|replace_and_keep_hyphen|safe }}</p>
+                </div>
+            </div>
+
+            <div class="vl"></div>
+
+            <div class="right-side-details">
+                <table class="job-details-table">
+                    <tr>
+                        <th>Job Title</th>
+                        <td>{{jobs[0].job_position}}</td>
+                    </tr>
+                    <tr>
+                        <th>Job Type</th>
+                        <td>{{jobs[0].job_type}}</td>
+                    </tr>
+                    <tr>
+                        <th>Working Address</th>
+                        <td>{{jobs[0].job_location}}</td>
+                    </tr>
+                    <tr>
+                        <th>Allowance</th>
+                        <td>RM{{ '%.2f'|format(jobs[0].salary) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Number of operating</th>
+                        <td>{{jobs[0].num_of_operate}} Person</td>
+                    </tr>
+                    <tr>
+                        <th>Industry Type</th>
+                        <td>{{jobs[0].industry_name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Person In Charge</th>
+                        <td>{{jobs[0].company_email}}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td>{{jobs[0].company_phone}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            {% if not job_applied %}
+                            <button type="submit" name="button-apply" class="button-apply-company">Apply</button>
+                            {% else %}
+                            <button type="button" disabled class="button-apply-company">Already Applied</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
+
+    <hr>
+    <footer>
+        <p>© 2023 - TAR UMT FOCS ITP</p>
+    </footer>
+
+    <script src="/bundles/bootstrap?v=lescQEuG5u4jd-GcVDBcbpUOSyTDIg0Kk9zHDX55GCw1"></script>
+
+    <script>
+        function toggleDropdown() {
+            var dropdownOptions = document.getElementById("dropdownOptions");
+            if (dropdownOptions.style.display === "block") {
+                dropdownOptions.style.display = "none";
+            } else {
+                dropdownOptions.style.display = "block";
+            }
+        }
+
+        // Add a click event listener to the document
+        document.addEventListener("click", function (event) {
+            var dropdown = document.querySelector(".dropdown");
+            if (!dropdown.contains(event.target)) {
+                // Clicked outside the dropdown, so close it
+                var dropdownOptions = document.getElementById("dropdownOptions");
+                dropdownOptions.style.display = "none";
+            }
+        });
+    </script>
+</body>
+
+</html>

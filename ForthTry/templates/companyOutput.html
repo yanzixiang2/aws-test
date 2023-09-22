@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Avenir, sans-serif;
+      color: rgb(0, 0, 0);
+      background-color: #ffffff;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+    }
+
+    h3 {
+      font-size: 1.6rem;
+    }
+
+    h4 {
+      font-size: 1.4rem;
+    }
+
+    h5 {
+      font-size: 1.2rem;
+    }
+
+    h6 {
+      font-size: 1rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .button {
+      background-color: rgb(118, 131, 250);
+      color: rgb(255, 255, 255);
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .button:hover {
+      background-color: rgb(118, 247, 118);
+    }
+  </style>
+  <title>Company Approve Output</title>
+</head>
+<body>
+  <div class="container">
+    <center>
+      <h1>Approve Success</h1>
+      <br>
+      <h2>Following company has been approved</h2>
+      <br>
+      {% if company_list %}
+        <h5>
+          {% for company in company_list %}
+            {{ company.name }}
+            {% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </h5>
+      {% else %}
+        <h1>Please select at least one company</h1>
+      {% endif %}
+      <br>
+      <form action="/displayCompany" autocomplete="on" method="GET">
+        <button type="submit" class="button">GO BACK</button>
+      </form>
+    </center>
+  </div>
+</body>
+</html>

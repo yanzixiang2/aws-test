@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html>
+
+<!-- CSS Properties -->
+<style>
+    .nav-bar {
+        display: flex;
+        top: 0;
+        right: 0;
+        background-color: #334fff;
+        padding: 15px;
+        justify-content: space-between;
+    }
+
+    .homeNav {
+        margin-left: -10px;
+    }
+
+    .otherNav {
+        margin-right: 10px;
+    }
+
+    .nav-bar a {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        text-decoration: none;
+        color: #ffffff !important;
+        /* Add !important */
+        font-size: 16px;
+        margin-left: 20px;
+        /* Add margin to space out the links */
+        transition: color 0.3s;
+        /* Smooth color transition on hover */
+    }
+
+    .nav-bar a:hover {
+        color: #000000 !important;
+        /* Change the color on hover */
+    }
+
+    body {
+        margin: 0px;
+    }
+
+    .h2,
+    h2 {
+        font-size: 30px;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    h1,
+    h2,
+    h3 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.1;
+        color: inherit;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+        margin-bottom: 0 !important;
+    }
+
+    .container .jumbotron,
+    .container-fluid .jumbotron {
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+
+    .container .jumbotron,
+    .container-fluid .jumbotron {
+        /* padding-right: 15px;
+    padding-left: 15px; */
+        border-radius: 6px;
+    }
+
+    .jumbotron {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .jumbotron {
+        margin-left: 200px;
+        margin-right: 200px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+        color: inherit;
+        background-color: #eee;
+    }
+
+    .content {
+        display: flex;
+    }
+
+    .logoCol {
+        width: 50px;
+        margin: 10px;
+    }
+
+    .col {
+        margin-left: 150px;
+        float: right;
+        flex: 1;
+        padding: 10px;
+    }
+
+    .footerRow {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 21px;
+        font-weight: 300;
+        line-height: 1.4;
+        margin-left: 190px;
+        margin-right: 190px;
+    }
+
+    footer {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.4;
+        margin-left: 190px;
+        margin-right: 190px;
+    }
+
+    .jumbotron p,
+    h3 {
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        color: rgb(51, 51, 51);
+        font-size: 23px;
+        font-family: Arial;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Style for the dropdown button */
+    .dropdown-button {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    /* Style for the dropdown content (hidden by default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 120px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    /* Style for the dropdown options */
+    .dropdown-content a {
+        color: #333;
+        padding: 12px 16px;
+        padding-left: 0px;
+        text-decoration: none;
+        display: block;
+    }
+
+    body {
+        margin: 0px;
+        background-color: rgb(255, 255, 255);
+        color: black;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    h1 {
+        font-size: 22px;
+        font-weight: lighter;
+        margin-top: 20px;
+        margin-left: 80px;
+        color: rgb(0, 10, 44);
+    }
+
+    .tab {
+        border: 0.5px solid rgb(12, 27, 80);
+    }
+
+    /* input{
+    height:25px;
+    font-size:14pt;
+    color:grey;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #000;
+}
+
+submitBtn{
+    background: grey; 
+    height: 45px; 
+    width: 200px; 
+    color: white; 
+    size: 5;
+    font:oblique;
+}
+*/
+    .uploadCompLogo {
+        height: 25px;
+        font-size: 10pt;
+        color: grey;
+    }
+
+    table {
+        width: 50%;
+    }
+
+    .a {
+        flex-direction: row;
+        align-content: center;
+        justify-content: flex-end;
+    }
+
+    .regCompany {
+        text-align: center;
+    }
+
+    .label {
+        font-weight: bold;
+
+    }
+
+    .test {
+        width: 50%;
+    }
+
+    .inputText,
+    .uploadCompLogo {
+        width: 40%;
+        padding: 5px;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid black;
+    }
+
+    .submitBtn {
+        margin-top: 10px;
+    }
+
+    /* Style for Container & Details */
+    .container {
+        margin: 15px 10em;
+        padding: 0 !important;
+    }
+
+    .container .details {
+        margin: 30px 0;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        /* padding: 20px; */
+    }
+
+    .container .details-header {
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .container .details-header h1 {
+        margin: 0;
+        padding-bottom: 20px;
+    }
+
+    .container .details-header .upload-resume,
+    .container .details-header .edit-profile {
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+        color: #2a43d1;
+    }
+
+    .container .details-header .upload-resume i,
+    .container .details-header .edit-profile i {
+        font-size: 24px;
+        margin-right: 10px;
+    }
+
+    .container .details-header .upload-resume p,
+    .container .details-header .edit-profile p {
+        margin-bottom: 0;
+    }
+
+    .container .details-header .edit-profile {
+        border-left: 1px solid #ccc;
+    }
+
+    .container .details-header .options {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    /* Details & Body CSS */
+    .details .details-content-title {
+        background-color: rgb(239, 239, 239);
+        padding: 15px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .details .details-content-body {
+        padding: 10px 20px;
+    }
+
+    /* Declaration */
+    .details .declaration-content {
+        text-align: justify;
+        color: #9e1e0d;
+        padding-top: 10px;
+    }
+
+    .declaration-button {
+        text-align: center;
+    }
+
+    .details .declaration-button button {
+        margin: 0 10px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        color: #FFF;
+    }
+
+    .acc-btn {
+        background-color: #00cc00;
+        /* Green */
+        color: #fff;
+        /* White text */
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        border-radius: 10px;
+    }
+
+    .acc-btn:hover {
+        background-color: #009900;
+        /* Darker Green on hover */
+    }
+
+    /* Decline button */
+    .dec-btn {
+        background-color: #ff0000;
+        /* Red */
+        color: #fff;
+        /* White text */
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .dec-btn:hover {
+        background-color: #cc0000;
+        /* Darker Red on hover */
+    }
+
+    /* Bootstrap display field CSS */
+    /* Add vertical spacing between each field in the details-content-body */
+    .row {
+        margin-bottom: 10px;
+        /* Adjust this value to your desired spacing */
+        font-size: 14px;
+    }
+
+    /* Optional: Add some padding inside each field for better visual separation */
+    .row .col-md-2,
+    .row .col-md-10 {
+        padding: 5px 10px;
+    }
+
+    .row .col-md-2 {
+        text-align: right;
+    }
+
+    .row .col-md-10 input {
+        font-size: 14px;
+    }
+
+    .center-label {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .address-label {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    /* Progress Report CSS */
+    .report-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        /* Add background color transition */
+    }
+
+    /* Style for the expanded header */
+    .report-header.expanded {
+        background-color: lightgrey;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    /* Style for the report-content */
+    .report-content {
+        display: none;
+        padding: 15px;
+        border-top: 1px solid #ccc;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background-color: #fff;
+        transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+        /* Add transition for max-height and padding */
+        overflow: hidden;
+        /* Hide content overflow */
+    }
+
+    /* Style for the arrow icon */
+    .report-header .fa {
+        transition: transform 0.3s;
+    }
+
+    /* Style for the arrow icon when expanded */
+    .report-header.expanded .fa {
+        transform: rotate(180deg);
+    }
+
+    .due-details {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .due-details i {
+        margin-left: 20px;
+    }
+
+    .due-details .due-date {
+        color: #cc0000;
+    }
+
+    .report-content-details {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    /* Style for the Submit Button */
+    .submit-button {
+        background-color: #4CAF50;
+        /* Green background */
+        color: #fff;
+        /* White text */
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        /* 10px border radius */
+        cursor: pointer;
+        transition: background-color 0.3s;
+        /* Smooth background color transition */
+    }
+
+    .submit-button:hover {
+        background-color: #45a049;
+        /* Darker green on hover */
+    }
+
+    .internship-details {
+        padding: 10px;
+        color: #2a43d1;
+        text-align: center;
+    }
+
+    /* Status styles */
+    .status-pending {
+        color: darkgoldenrod;
+        font-weight: bold;
+    }
+
+    .status-submitted,
+    .status-approved {
+        color: darkgreen;
+        font-weight: bold;
+    }
+
+    .status-rejected {
+        color: red;
+        font-weight: bold;
+    }
+
+    .submission-remark {
+        padding: 10px 0;
+        color: red;
+        text-align: start;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student SignUp - TARUMT ITP</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="homeNav">
+            <a href="/">Home</a>
+        </div>
+        <div class="otherNav">
+            <div class="dropdown">
+                <a class="dropdown-button" onclick="toggleDropdown()">Company</a>
+                <div id="dropdownOptions" class="dropdown-content">
+                    <a href="/register_company">Sign Up</a>
+                    <a href="/login_company">Login</a>
+                </div>
+            </div>
+            <a href="#">Uni Supervisor</a>
+            <a href="/login_admin">Admin</a>
+            <div class="dropdown">
+                <a class="dropdown-button" onclick="toggleDropdown()">Student</a>
+                <div id="dropdownOptions" class="dropdown-content">
+                    <a href="/student_home">Home</a>
+                    <a href="/edit_student">Edit Profile</a>
+                    <a href="/upload_resume">Upload resume</a>
+                    <a href="#">Apply internship</a>
+                    <a href="#">Track application</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="details-header">
+            <h2>Progress Report</h2>
+            <div class="options">
+                <div class="upload-resume">
+                    <i class="fa fa-id-card" aria-hidden="true"></i>
+                    <a href="/upload_resume">Upload your resume here!</a>
+                </div>
+                <div class="edit-profile">
+                    <i class="fa fa-address-card" aria-hidden="true"></i>
+                    <a href="/student_home">View profile</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add a text says Internship period at make it centered-->
+        <div class="internship-details">
+            Internship period: <b>{{ start_date }} to {{ end_date }}</b>
+        </div>
+
+        <!-- Add a text says Internship period at make it centered-->
+        <div class="submission-remark">
+            <b>*Please submit the report in PDF format.</b>
+        </div>
+
+        <!-- Report details -->
+        <div class="container">
+            {% for submission_date, report_name in combined_data %}
+            <form action="/uploadProgressReport" autocomplete="on" method="POST" enctype="multipart/form-data">
+                <!-- STORE SUBMISSION DATE-->
+                <input type="hidden" value="{{ submission_date }}" name="submission_date">
+
+                <!-- Iterate over the report_list and display report details -->
+                {% for report in report_list %}
+                {% if report.reportType == report_name|replace(" ", "") %}
+                <div class="details">
+                    <!-- STORE REPORT TYPE HERE -->
+                    <input type="hidden" value="{{ report.reportType }}" name="report_type">
+                    <div class="report-header expandable">
+                        <div class="report-title">{{ report_name }}</div>
+                        <div class="due-details">
+                            <div class="due-date">Due: <b>{{ submission_date }}</b></div>
+                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="report-content">
+                        <div class="report-content-details">
+                            <!-- Submission -->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <strong>Submission</strong>
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="file" name="progress_report" class="upload-form"
+                                        accept="application/pdf" required>
+                                    <div style="padding-top: 5px;">
+                                        <a href="{{ url_for('viewProgressReport', report_type=report.reportType) }}"
+                                            target="_blank">View Report</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Submitted Date -->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <strong>Date submitted</strong>
+                                </div>
+                                <div class="col-md-10">
+                                    {{ report.submissionDate }}
+                                    {% if report.late == 1 %}
+                                    <b style="color: red;">(Late)</b>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- Status -->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <strong>Status</strong>
+                                </div>
+                                <div class="col-md-10">
+                                    {% if report.status == 'pending' %}
+                                    <span class="status-pending">Pending</span>
+                                    {% elif report.status == 'submitted' %}
+                                    <span class="status-submitted">Submitted</span>
+                                    {% elif report.status == 'approved' %}
+                                    <span class="status-approved">Approved</span>
+                                    {% elif report.status == 'rejected' %}
+                                    <span class="status-rejected">Rejected</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- Remark -->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <strong>Remark</strong>
+                                </div>
+                                <div class="col-md-10">
+                                    {{ report.remark }}
+                                </div>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <!-- Include any additional information here -->
+                                </div>
+                                <div class="col-md-10">
+                                    <button class="submit-button" {% if report.status=='approved' %}disabled{% endif
+                                        %}>Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </form>
+            {% endfor %}
+        </div>
+        <hr>
+    </div>
+
+    <footer>
+        <p>© 2023 - TAR UMT FOCS ITP</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script/master.js') }}"></script>
+    <script>
+        function toggleDropdown() {
+            var dropdownOptions = document.getElementById("dropdownOptions");
+            if (dropdownOptions.style.display === "block") {
+                dropdownOptions.style.display = "none";
+            } else {
+                dropdownOptions.style.display = "block";
+            }
+        }
+
+        // Add a click event listener to the document
+        document.addEventListener("click", function (event) {
+            var dropdown = document.querySelector(".dropdown");
+            if (!dropdown.contains(event.target)) {
+                // Clicked outside the dropdown, so close it
+                var dropdownOptions = document.getElementById("dropdownOptions");
+                dropdownOptions.style.display = "none";
+            }
+        });
+    </script>
+
+    <script>
+        //EXPAND REPORT CONTENTS
+        // Get all elements with the class "expandable"
+        const expandableElements = document.querySelectorAll('.expandable');
+
+        // Add click event listeners to each expandable element
+        expandableElements.forEach((element) => {
+            element.addEventListener('click', () => {
+                // Toggle the "expanded" class to change the background color and expand/collapse content
+                element.classList.toggle('expanded');
+
+                // Find the associated content and toggle its visibility
+                const content = element.nextElementSibling;
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                } else {
+                    content.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

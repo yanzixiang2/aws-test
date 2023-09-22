@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+
+<!-- CSS Properties -->
+<style>
+    .nav-bar {
+        display: flex;
+        top: 0;
+        right: 0;
+        background-color: #334fff;
+        padding: 15px;
+        justify-content: space-between;
+    }
+
+    .homeNav {
+        margin-left: -10px;
+    }
+
+    .otherNav {
+        margin-right: 10px;
+    }
+
+    .nav-bar a {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        text-decoration: none;
+        color: #ffffff !important;
+        /* Add !important */
+        font-size: 16px;
+        margin-left: 20px;
+        /* Add margin to space out the links */
+        transition: color 0.3s;
+        /* Smooth color transition on hover */
+    }
+
+    .nav-bar a:hover {
+        color: #000000 !important;
+        /* Change the color on hover */
+    }
+
+    body {
+        margin: 0px;
+    }
+
+    .h2,
+    h2 {
+        font-size: 30px;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    h1,
+    h2,
+    h3 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.1;
+        color: inherit;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .container .jumbotron,
+    .container-fluid .jumbotron {
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+
+    .container .jumbotron,
+    .container-fluid .jumbotron {
+        /* padding-right: 15px;
+    padding-left: 15px; */
+        border-radius: 6px;
+    }
+
+    .jumbotron {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .jumbotron {
+        margin-left: 200px;
+        margin-right: 200px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+        color: inherit;
+        background-color: #eee;
+    }
+
+    .content {
+        display: flex;
+    }
+
+    .logoCol {
+        width: 50px;
+        margin: 10px;
+    }
+
+    .col {
+        margin-left: 150px;
+        float: right;
+        flex: 1;
+        padding: 10px;
+    }
+
+    .footerRow {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 21px;
+        font-weight: 300;
+        line-height: 1.4;
+        margin-left: 190px;
+        margin-right: 190px;
+    }
+
+    footer {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.4;
+        margin-left: 190px;
+        margin-right: 190px;
+    }
+
+    .jumbotron p,
+    h3 {
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        color: rgb(51, 51, 51);
+        font-size: 23px;
+        font-family: Arial;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Style for the dropdown button */
+    .dropdown-button {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    /* Style for the dropdown content (hidden by default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 120px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    /* Style for the dropdown options */
+    .dropdown-content a {
+        color: #333;
+        padding: 12px 16px;
+        padding-left: 0px;
+        text-decoration: none;
+        display: block;
+    }
+
+    body {
+        margin: 0px;
+        background-color: rgb(255, 255, 255);
+        color: black;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    h1 {
+        font-size: 22px;
+        font-weight: lighter;
+        margin-top: 20px;
+        margin-left: 80px;
+        color: rgb(0, 10, 44);
+    }
+
+    .tab {
+        border: 0.5px solid rgb(12, 27, 80);
+    }
+
+    /* input{
+    height:25px;
+    font-size:14pt;
+    color:grey;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #000;
+}
+
+submitBtn{
+    background: grey; 
+    height: 45px; 
+    width: 200px; 
+    color: white; 
+    size: 5;
+    font:oblique;
+}
+*/
+    .uploadCompLogo {
+        height: 25px;
+        font-size: 10pt;
+        color: grey;
+    }
+
+    table {
+        width: 50%;
+    }
+
+    .a {
+        flex-direction: row;
+        align-content: center;
+        justify-content: flex-end;
+    }
+
+    .regCompany {
+        text-align: center;
+    }
+
+    .label {
+        font-weight: bold;
+
+    }
+
+    .test {
+        width: 50%;
+    }
+
+    .inputText,
+    .uploadCompLogo {
+        width: 40%;
+        padding: 5px;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid black;
+    }
+
+    .submitBtn {
+        margin-top: 10px;
+    }
+
+    /* Style for Container & Details */
+    .container {
+        margin: 15px 10em;
+    }
+
+    .container .details {
+        margin: 30px 0;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        /* padding: 20px; */
+    }
+
+    /* Title of the website */
+    .container .details-header {
+        margin: 20px 0;
+    }
+
+    .container .details-header h1 {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 20px;
+        margin: 0;
+    }
+
+    /* Details & Body CSS */
+    .details .details-content-title {
+        background-color: rgb(239, 239, 239);
+        padding: 15px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        margin: 0;
+    }
+
+    .details .details-content-body {
+        padding: 10px 20px;
+    }
+
+    /* Declaration */
+    .details .declaration-content {
+        text-align: justify;
+        color: #9e1e0d;
+        padding-top: 10px;
+    }
+
+    .details .declaration-button {
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    .details .declaration-button button {
+        margin: 0 10px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        color: #FFF;
+    }
+
+    .acc-btn {
+        background-color: #03c003;
+        /* Green */
+        color: #fff;
+        /* White text */
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .acc-btn:hover {
+        background-color: #00ff00;
+        /* Darker Green on hover */
+    }
+
+    /* Decline button */
+    .dec-btn {
+        background-color: #ff0000;
+        /* Red */
+        color: #fff;
+        /* White text */
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .dec-btn:hover {
+        background-color: #cc0000;
+        /* Darker Red on hover */
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student SignUp - TARUMT ITP</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="homeNav">
+            <a href="/">Home</a>
+        </div>
+        <div class="otherNav">
+            <div class="dropdown">
+                <a class="dropdown-button" onclick="toggleDropdown()">Company</a>
+                <div id="dropdownOptions" class="dropdown-content">
+                    <a href="/register_company">Sign Up</a>
+                    <a href="/login_company">Login</a>
+                </div>
+            </div>
+            <a href="#">Uni Supervisor</a>
+            <a href="/login_admin">Admin</a>
+            <a href="/login_student">Student</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="details-header">
+            <h1>Student Sign Up</h1>
+        </div>
+
+        <form action="/addstud" autocomplete="on" method="POST" enctype="multipart/form-data">
+            <!-- Academic details -->
+            <div class="details">
+                <div class="details-content-title">
+                    Academic Details
+                </div>
+
+                <div class="details-content-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="level" class="col-sm-4 col-form-label"><b>Level</b></label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="level" name="level">
+                                        <option value="">-- Select One --</option>
+                                        <option value="diploma">Diploma</option>
+                                        <option value="bachelor">Bachelor</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="cohort" class="col-sm-4 col-form-label"><b>Cohort</b></label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="cohort" name="cohort">
+                                        <option value="">-- Select One --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="programme" class="col-sm-4 col-form-label"><b>Programme</b></label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="programme" name="programme">
+                                        <option value="">-- Select One --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="studentId" class="col-sm-4 col-form-label"><b>Student ID</b></label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="studentId" name="studentId"
+                                        placeholder="e.g: 99WMR9999" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="email" class="col-sm-4 col-form-label"><b>Email</b></label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="email" name="email"
+                                        placeholder="e.g: xxx-xx99@student.tarc.edu.my">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal data -->
+            <div class="details">
+                <div class="details-content-title">
+                    Personal Details
+                </div>
+
+                <div class="details-content-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-4 col-form-label"><b>Name</b></label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Name as in NRIC">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="ic" class="col-sm-4 col-form-label"><b>NRIC</b></label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="ic" name="ic"
+                                        placeholder="e.g: 999999-99-9999" maxlength="14">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="mobile" class="col-sm-4 col-form-label"><b>Mobile Number</b></label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="mobile" name="mobile"
+                                        placeholder="e.g: 012-3456789" maxlength="14">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label"><b>Gender</b></label>
+                                <div class="col-sm-8">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="male" value="M">
+                                        <label class="form-check-label" for="male">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="female"
+                                            value="F">
+                                        <label class="form-check-label" for="female">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="address" class="col-sm-4 col-form-label"><b>Address</b></label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" id="address" name="address" rows="4"
+                                        placeholder="Current Term Address"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Declaration -->
+            <div class="details">
+                <div class="details-content-title">
+                    Declaration
+                </div>
+
+                <div class="details-content-body">
+                    <div class="declaration-content">
+                        I UNDERSTAND THAT I MUST COMPLETE THE FULL DURATION OF THE INDUSTRIAL TRAINING PROGRAMME PERIOD
+                        SATISFACTORILY IN ORDER TO PASS THE BAIT305C / AMIT3205 COURSE. I AGREE TO ABIDE BY THE RULES
+                        AND
+                        REGULATIONS OF THE COMPANY CONCERNED AND I WILL ALWAYS UPHOLD THE GOOD NAME OF THE UNIVERSITY
+                        COLLEGE AT ALL TIMES DURING THE WHOLE DURATION OF THE INDUSTRIAL TRAINING PROGRAMME.
+                    </div>
+
+                    <div class="declaration-button">
+                        <button class="acc-btn">I accept</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr>
+    </div>
+
+    <footer>
+        <p>© 2023 - TAR UMT FOCS ITP</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script/master.js') }}"></script>
+
+    <!-- DDL CONTENTS -->
+    <script>
+        const levelDropdown = document.getElementById("level");
+        const cohortDropdown = document.getElementById("cohort");
+        const programmeDropdown = document.getElementById("programme");
+
+        // Add event listener to the "Level" dropdown
+        levelDropdown.addEventListener("change", function () {
+            // Clear the existing options in "Cohort" and "Programme" dropdowns
+            cohortDropdown.innerHTML = '<option value="">-- Select One --</option>';
+            programmeDropdown.innerHTML = '<option value="">-- Select One --</option>';
+
+            const selectedLevel = levelDropdown.value;
+
+            if (selectedLevel === "diploma") {
+                // Populate "Cohort" and "Programme" options for Diploma
+                cohortDropdown.innerHTML += '<option value="JUN2023Y3">JUN2023Y3 (15/1/23 - 15/7/23)</option>';
+                programmeDropdown.innerHTML += '<option value="DCS">DCS</option>';
+                programmeDropdown.innerHTML += '<option value="DFT">DFT</option>';
+                programmeDropdown.innerHTML += '<option value="DIS">DIS</option>';
+                programmeDropdown.innerHTML += '<option value="DIT">DIT</option>';
+                programmeDropdown.innerHTML += '<option value="DST">DST</option>';
+            } else if (selectedLevel === "bachelor") {
+                // Populate "Cohort" and "Programme" options for Bachelor
+                cohortDropdown.innerHTML += '<option value="OCT2020Y2">OCT2020Y2 (1/3/23 - 1/6/23)</option>';
+                cohortDropdown.innerHTML += '<option value="JAN2021Y1">JAN2021Y1 (10/5/23 - 10/11/23)</option>';
+                cohortDropdown.innerHTML += '<option value="JUL2020Y2">JUL2020Y2 (20/10/24 - 20/1/24)';
+                programmeDropdown.innerHTML += '<option value="RDS">RDS</option>';
+                programmeDropdown.innerHTML += '<option value="REI">REI</option>';
+                programmeDropdown.innerHTML += '<option value="RIS">RIS</option>';
+                programmeDropdown.innerHTML += '<option value="RIT">RIT</option>';
+                programmeDropdown.innerHTML += '<option value="RSD">RSD</option>';
+                programmeDropdown.innerHTML += '<option value="RSW">RSW</option>';
+                programmeDropdown.innerHTML += '<option value="RST">RST</option>';
+                programmeDropdown.innerHTML += '<option value="RMI">RMI</option>';
+                programmeDropdown.innerHTML += '<option value="RMM">RMM</option>';
+            }
+        });
+    </script>
+    <script>
+        function toggleDropdown() {
+            var dropdownOptions = document.getElementById("dropdownOptions");
+            if (dropdownOptions.style.display === "block") {
+                dropdownOptions.style.display = "none";
+            } else {
+                dropdownOptions.style.display = "block";
+            }
+        }
+
+        // Add a click event listener to the document
+        document.addEventListener("click", function (event) {
+            var dropdown = document.querySelector(".dropdown");
+            if (!dropdown.contains(event.target)) {
+                // Clicked outside the dropdown, so close it
+                var dropdownOptions = document.getElementById("dropdownOptions");
+                dropdownOptions.style.display = "none";
+            }
+        });
+    </script>
+</body>
+
+</html>

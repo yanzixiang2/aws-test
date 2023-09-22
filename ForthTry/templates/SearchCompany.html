@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<style>
+    nav {
+        display: flex;
+        top: 0;
+        right: 0;
+        background-color: #334FFF;
+        padding: 15px;
+        justify-content: space-between;
+    }
+
+    .homeNav {
+        margin-left: -10px;
+    }
+
+    .otherNav {
+        margin-right: 10px;
+    }
+
+    nav a {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 16px;
+        margin-left: 20px;
+        /* Add margin to space out the links */
+        transition: color 0.3s;
+        /* Smooth color transition on hover */
+    }
+
+    nav a:hover {
+        color: #000000;
+        /* Change the color on hover */
+    }
+
+    body {
+        margin: 0px;
+    }
+
+    .h2,
+    h2 {
+        font-size: 30px;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    h1,
+    h2,
+    h3 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.1;
+        color: inherit;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .container .jumbotron,
+    .container-fluid .jumbotron {
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+
+    .container .jumbotron,
+    .container-fluid .jumbotron {
+        /* padding-right: 15px;
+    padding-left: 15px; */
+        border-radius: 6px;
+    }
+
+    .jumbotron {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .jumbotron {
+        margin-left: 200px;
+        margin-right: 200px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+        color: inherit;
+        background-color: #eee;
+    }
+
+    .content {
+        display: flex;
+    }
+
+    .logoCol {
+        width: 100%;
+        margin: 10px;
+    }
+
+    .col {
+        margin-left: 150px;
+        float: right;
+        flex: 1;
+        padding: 10px;
+    }
+
+
+
+    .footerRow {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 21px;
+        font-weight: 300;
+        line-height: 1.4;
+        margin-left: 190px;
+        margin-right: 190px;
+    }
+
+    footer {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.4;
+        margin-left: 190px;
+        margin-right: 190px;
+    }
+
+    .jumbotron p,
+    h3 {
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        color: rgb(51, 51, 51);
+        font-size: 23px;
+        font-family: Arial;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Style for the dropdown button */
+    .dropdown-button {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    /* Style for the dropdown content (hidden by default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #dde1ff;
+        min-width: 120px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    /* Style for the dropdown options */
+    .dropdown-content a {
+        color: #333;
+        padding: 12px 16px;
+        padding-left: 0px;
+        text-decoration: none;
+        display: block;
+    }
+
+    /*SearchCompany.html */
+    .background-internship {
+        width: 1500px;
+        height: 400px;
+    }
+
+    .job-container {
+        position: relative;
+        right: 0;
+        width: 1000px;
+    }
+
+    .job-text-adjust {
+        margin: 10px;
+    }
+
+    .internship-header {
+        text-align: left;
+        margin: 20px;
+    }
+
+    .job-ad {
+        width: 480px;
+        height: 650px;
+        margin: 10px;
+        float: left;
+        display: flex;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .internship-header {
+        font-weight: bold;
+        color: #000000;
+    }
+
+    .content-company-name,
+    .content-company-title {
+        font-weight: bold;
+    }
+
+    button {
+        background-color: #00CEFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #1BFF00;
+    }
+
+    .job-search-filter {
+        width: 400px;
+        height: 500px;
+        float: left;
+        margin-right: 20px;
+        margin-left: 40px;
+        padding: 10px;
+    }
+
+    .group-search-company,
+    .group-search-title,
+    .group-search-state,
+    .group-range-allowance,
+    .group-search-allowance {
+        margin-bottom: 30px;
+    }
+
+    .job-search-filter label {
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #000000;
+    }
+
+    .job-search-filter input {
+        width: 90%;
+        height: 20px;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    .job-search-filter select {
+        width: 95.5%;
+        height: 40px;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+
+    .vl {
+        border-left: 1px solid #c3c3c3;
+        height: 500px;
+        margin-right: 10px;
+    }
+
+    .overall {
+        display: flex;
+    }
+
+    .div-line {
+        display: flex;
+    }
+
+    table.job-content {
+        BORDER-SPACING: 0.5EM;
+    }
+
+    table.job-content h1,
+    h2 {
+        font-weight: bold;
+    }
+
+    .confirm-filter-company {
+        background-color: #000;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .confirm-filter-company {
+        background-color: #6E2BFF;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <nav>
+        <div class="homeNav">
+            <a href="/">Home</a>
+        </div>
+        <div class="otherNav">
+            <div class="dropdown">
+                <a class="dropdown-button" onclick="toggleDropdown()">Company</a>
+                <div id="dropdownOptions" class="dropdown-content">
+                    <a href="/register_company">Sign Up</a>
+                    <a href="/login_company">Login</a>
+                </div>
+            </div>
+            <a href="#">Uni Supervisor</a>
+            <a href="#">Admin</a>
+            <a href="/login_student">Student</a>
+        </div>
+
+    </nav>
+</head>
+
+<body>
+    <a href="/student_home" class="button-back"><i class="fa fa-arrow-left" style="font-size:36px"></i></a>
+    <h1 class="internship-header">Finding Internship</h1>
+
+    <div class="overall">
+        <div class="div-line">
+            <form action="/displayJobFind" autocomplete="on" method="post">
+                <div class="job-search-filter">
+                    <div class="group-search-company">
+                        <label class="label-search-company">Company</label>
+                        <input type="text" name="search-company"
+                            placeholder="eg. Tunku Abdul Rahman University College">
+                    </div>
+
+                    <div class="group-search-title">
+                        <label class="label-search-title">Job Title</label>
+                        <input type="text" name="search-title" placeholder="eg. Web Developer">
+                    </div>
+
+                    <div class="group-search-state">
+                        <label class="label-search-state">State</label>
+                        <select name="search-state">
+                            <option value="All">All States</option>
+                            <option value="Selangor">Selangor</option>
+                            <option value="Kuala Lumpur">Kuala Lumpur</option>
+                            <option value="Penang">Penang</option>
+                            <option value="Johor">Johor</option>
+                            <option value="Melaka">Melaka</option>
+                            <option value="Negeri Sembilan">Negeri Sembilan</option>
+                            <option value="Pahang">Pahang</option>
+                            <option value="Terengganu">Terengganu</option>
+                            <option value="Kelantan">Kelantan</option>
+                            <option value="Perak">Perak</option>
+                            <option value="Sabah">Sabah</option>
+                            <option value="Sarawak">Sarawak</option>
+                        </select>
+                    </div>
+
+                    <div class="group-search-allowance">
+                        <label class="label-search-allowance">Allowance Range</label>
+                        <select name="search-allowance">
+                            <option value="300">RM0-RM300</option>
+                            <option value="600">Up To RM600</option>
+                            <option value="900">Up To RM900</option>
+                            <option value="1200">Up To RM1200</option>
+                            <option value="1500">Up To RM1500</option>
+                            <option value="1800" selected>Up To RM1800</option>
+                        </select>
+                    </div>
+                    <div class-group-button>
+                        <button type="submit" name="button-filter" class="confirm-filter-company">Filter</button>
+                    </div>
+                </div>
+            </form>
+            <div class="vl"></div>
+        </div>
+        <div class="job-container">
+
+            <div class="job-listing">
+                {% for job in jobs %}
+                <form action="/displayJobDetails" autocomplete="on" name="job" method="POST">
+                    <div class="job-ad">
+                        <div class="job-text-adjust">
+                            <img src="{{job.image_url }}"
+                                style="width: 300px; height: 200px; position: relative; left:75px;">
+                            <table class="job-content">
+                                <input type="hidden" name="transfer-id" value="{{ job.job_id }}">
+                                <tr>
+                                    <td colspan="2">
+                                        <h2>{{ job.company_name }}</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h3>{{ job.job_position }}</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Location</th>
+                                    <td>{{ job.job_location }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Allowance</th>
+                                    <td>RM{{ '%.2f'|format(job.salary) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Job Type</th>
+                                    <td>{{ job.job_type }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Open For</th>
+                                    <td>{{ job.qualification_level }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Publish Date</th>
+                                    <td>{{ job.publish_date.strftime('%Y-%m-%d') }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><button type="submit" name="button-view">VIEW</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <footer>
+        <p>© 2023 - TAR UMT FOCS ITP</p>
+    </footer>
+
+    <script src="/bundles/bootstrap?v=lescQEuG5u4jd-GcVDBcbpUOSyTDIg0Kk9zHDX55GCw1"></script>
+
+    <script>
+        function toggleDropdown() {
+            var dropdownOptions = document.getElementById("dropdownOptions");
+            if (dropdownOptions.style.display === "block") {
+                dropdownOptions.style.display = "none";
+            } else {
+                dropdownOptions.style.display = "block";
+            }
+        }
+
+        // Add a click event listener to the document
+        document.addEventListener("click", function (event) {
+            var dropdown = document.querySelector(".dropdown");
+            if (!dropdown.contains(event.target)) {
+                // Clicked outside the dropdown, so close it
+                var dropdownOptions = document.getElementById("dropdownOptions");
+                dropdownOptions.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

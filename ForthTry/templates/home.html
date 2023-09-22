@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+    <nav>
+        <div class="homeNav">
+            <a href="/">Home</a>
+        </div>
+        <div class="otherNav">
+            <div class="dropdown">
+                <a class="dropdown-button" onclick="toggleDropdown()">Company</a>
+                <div id="dropdownOptions" class="dropdown-content">
+                    <a href="/register_company">Sign Up</a>
+                    <a href="/login_company">Login</a>
+                </div>
+            </div>
+            <a href="/leclogin">Uni Supervisor</a>
+            <a href="/login_admin">Admin</a>
+            <a href="/login_student">Student</a>
+        </div>
+
+    </nav>
+</head>
+
+<body>
+    <div class="container body-content">
+        <style>
+            img {
+                display: block;
+                margin: auto;
+                width: 100%;
+            }
+
+            .col {
+                flex: 1;
+                padding: 1em;
+            }
+
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .jumbotron {
+                background-color: #f5f5f5;
+                padding: 2em;
+            }
+
+            .logoCol {
+                text-align: center;
+            }
+
+            h3 {
+                margin-top: 0;
+            }
+
+            p {
+                margin-top: 0.5em;
+                margin-bottom: 1em;
+            }
+
+            .footerRow {
+                text-align: center;
+                padding: 2em;
+            }
+
+            footer {
+                text-align: center;
+                padding: 1em;
+            }
+        </style>
+
+        <br>
+
+        <div class="row">
+            <div class="jumbotron">
+                <div style="text-align:center">
+                    <h2 style="color:dodgerblue">FOCS ITP <span style="font-family:'Comic Sans MS'">onMyFinger</span></h1>
+                </div>
+                <div class="content">
+                    <div class="logoCol">
+                        <div style="text-align:center">
+                            <img alt="TAR UMT logo" src="{{ url_for('static', filename='images/TARlogo.jpg') }}"
+                                style="width:180px;height:200px;">
+                        </div>
+                    </div>
+
+                    <div class="col col-md-9">
+                        <h3>BAIT305C/AMIT3205/BMMC3205 Industrial Training Programme</h3>
+                        <p>
+                            <b>Industrial Training</b> is a compulsory programme that open doors for internship
+                            essentials.
+                            The programme focuses on student internship attachment, as evidence of work capabilities
+                            such as expanding professional network,
+                            social values, work quality and ethics.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footerRow">
+            <p class="lead"><i>This website is mainly for students from Faculty of Computing and Information
+                Technology (FOCS) to submit their ITP related documents.</i></p>
+        </div>
+
+        <hr>
+        <footer>
+            <p>© 2023 - TAR UMT FOCS ITP</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script/master.js') }}"></script>
+
+    <script>
+        function toggleDropdown() {
+            var dropdownOptions = document.getElementById("dropdownOptions");
+            if (dropdownOptions.style.display === "block") {
+                dropdownOptions.style.display = "none";
+            } else {
+                dropdownOptions.style.display = "block";
+            }
+        }
+
+        // Add a click event listener to the document
+        document.addEventListener("click", function (event) {
+            var dropdown = document.querySelector(".dropdown");
+            if (!dropdown.contains(event.target)) {
+                // Clicked outside the dropdown, so close it
+                var dropdownOptions = document.getElementById("dropdownOptions");
+                dropdownOptions.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+
+
+
+</html>

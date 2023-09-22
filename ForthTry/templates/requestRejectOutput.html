@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<style>
+        body {
+          font-family: Avenir, sans-serif;
+          color: #333;
+          background-color: #f5f5f5;
+        }
+    
+        h1, h2, h3, h4, h5, h6 {
+          font-weight: 500;
+          line-height: 1.2;
+        }
+    
+        h1 {
+          font-size: 2rem;
+        }
+    
+        h2 {
+          font-size: 1.8rem;
+        }
+    
+        h3 {
+          font-size: 1.6rem;
+        }
+    
+        h4 {
+          font-size: 1.4rem;
+        }
+    
+        h5 {
+          font-size: 1.2rem;
+        }
+    
+        h6 {
+          font-size: 1rem;
+        }
+    
+        .container {
+          max-width: 960px;
+          margin: 0 auto;
+        }
+    
+        .center {
+          text-align: center;
+        }
+    
+        .button {
+          background-color: #333;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+          border-radius: 3px;
+        }
+    
+        .button:hover {
+          background-color: #444;
+        }
+                table {
+                    border-collapse: collapse;
+                    font-family: Tahoma, Geneva, sans-serif;
+                }
+                table td {
+                    padding: 15px;
+                }
+                table thead td {
+                    background-color: #0070fa;
+                    color: #ffffff;
+                    font-weight: bold;
+                    font-size: 13px;
+                    border: 1px solid #000000;
+                }
+                table tbody td {
+                    color: #000000;
+                    border: 1px solid #000000;
+                }
+                table tbody tr {
+                    background-color: #77bbff;
+                }
+                table tbody tr:nth-child(odd) {
+                    background-color: #b1d3ff;
+                }
+        </style>
+<head>
+<center>
+	<font color="grey" size="5" style="font-family: avenir">
+		<body bgcolor="lightgrey">
+            {% if request_list %}
+                <h1>Reject Success</h1><br>
+                <h2>Following request has been rejected</h2><br>
+                
+                <table>
+                    <thead>
+                        <tr>                                             
+                        <td>Attribue</td>
+                        <td>Change</td>
+                        <td>Reason</td>
+                        <td>Student ID</td>
+                        </tr>
+                    </thead>
+                    <tbody>            
+                        {% for request in request_list %}
+                            <tr>                                                              
+                                <td>{{ request.attribute }}</td>                               
+                                <td>{{ request.change }}</td>                              
+                                <td>{{ request.reason }}</td>
+                                <td>{{ request.studentId }}</td>                                
+                            </tr>
+                            {% endfor %}                               
+                    </tbody>
+                </table>                                  
+            
+                <title>Request Reject Output</title>
+                    <form action="/displayRequest" autocomplete="on" method="GET">
+                        <br><button type="submit" style="background:  rgb(102, 150, 255); height: 45px; width: 200px; color:white; font:oblique;">GO BACK</button><br><br>
+                    </form>
+            {% else %} 
+                <h1>Please select at least one request</h1><br>                              
+                <title>None selected request</title>
+                    <form action="/displayRequest" autocomplete="on" method="GET">
+                        <button type="submit" style="background:  rgb(102, 150, 255); height: 45px; width: 200px; color:white; font:oblique;">GO BACK</button><br><br>
+                    </form>
+            {% endif %}  
+		</body>
+	</font>
+</center>
+</head>
+<body>
+
+</body>
+</html>

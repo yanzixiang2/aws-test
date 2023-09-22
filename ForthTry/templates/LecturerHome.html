@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+        body {
+            margin: 0px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        nav {
+            display: flex;
+            top: 0;
+            right: 0;
+            background-color: #334fff;
+            padding: 15px;
+            justify-content: space-between;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            margin-left: 20px;
+            /* Add margin to space out the links */
+            transition: color 0.3s;
+            /* Smooth color transition on hover */
+        }
+
+        .footerRow {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 21px;
+            font-weight: 300;
+            line-height: 1.4;
+            margin-left: 190px;
+            margin-right: 190px;
+        }
+
+        footer {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.4;
+            margin-left: 190px;
+            margin-right: 190px;
+        }
+
+        .form {
+            width: 100%;
+            display: flex;
+            padding: 5px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .form .form-label {
+            width: 20%;
+            font-weight: bold;
+            text-align: end;
+            padding-right: 30px;
+            margin-bottom: 0px;
+        }
+
+        .btn {
+            font-size: 14px;
+        }
+
+        .panel-main {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 20px 0px;
+        }
+
+        .panel-main .panel-header {
+            background-color: #6cd0ff;
+            color: rgb(0, 0, 0);
+            border-color: #ddd;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #students th {
+            padding: 5px 0px;
+            text-align: left;
+            background-color: rgb(166, 213, 252);
+            color: rgb(0, 0, 0);
+        }
+
+        #students td,
+        #students th {
+            padding: 5px;
+        }
+
+        #students tr:nth-child(even) {
+            background-color: #dae9fc;
+        }
+
+        #students tr:hover {
+            background-color: #dae9fc);
+        }
+
+        #students .idUrl {
+            color: #000000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #students .idUrl:hover,
+        #students .idUrl:active {
+            color: #187bcd;
+            text-decoration: none;
+        }
+
+        .pdfReport {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .pdfReport:hover, .pdfReport:active {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="homeNav">
+            <a href="/lecHome">Home</a>
+        </div>
+        <div class="otherNav">
+            <a href="/logoutlec">Log Out</a>
+        </div>
+    </nav>
+
+    <div style="margin: 20px 100px; padding: 10px;">
+
+        <h2 style="font-weight: 500;">Welcome : {{ lecturer[2] }}</h2>
+        <hr>
+
+        <!-- LECTURER INFORMATION -->
+        <div class="panel-main">
+            <div class="panel-header">
+                <div>Profile</div>
+                <div>
+                    <form action="/fetchdata" autocomplete="on" method="POST">
+                        <input type="hidden" name="lec_id" value="{{ lecturer[0] }}" autofocus size="40">
+                        <button type="submit" class="btn btn-outline-secondary">Edit</button>
+                    </form>
+                </div>
+            </div>
+            <div style="padding: 15px 30px; display: flex; align-items: center;">
+                <div>
+                    <img src="{{ image_url }}" alt="No Profile Picture" style="width: 100px;" />
+                </div>
+                <div style="width: 70%;">
+                    <div class="form">
+                        <div class="form-label">Name</div>
+                        <div class="form-data">
+                            {% if lecturer[3] == 'M' %}
+                            <span style="color: #187bcd; font-size: 16px;"><iconify-icon
+                                    icon="fa-solid:male"></iconify-icon></span>
+                            {% elif lecturer[3] == 'F' %}
+                            <span style="color: #f5347f; font-size: 16px;"><iconify-icon
+                                    icon="fa-solid:female"></iconify-icon></span>
+                            {% endif %} {{ lecturer[2] }}
+                        </div>
+                    </div>
+                    <div class="form">
+                        <div class="form-label">Email</div>
+                        <div class="form-data">{{ lecturer[4] }}</div>
+                    </div>
+                    <div class="form">
+                        <div class="form-label">Expertise</div>
+                        <div class="form-data">{{ lecturer[5] }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STUDENTS -->
+        <div class="panel-main">
+            <div class="panel-header">
+                <div>Students</div>
+                <form action="/displayStudent" autocomplete="on" method="POST">
+                    <button type="submit" name="action" value="pickUp" class="btn btn-outline-secondary">Pick
+                        Up</button>
+                    <button type="submit" name="action" value="drop" class="btn btn-outline-secondary">Drop</button>
+                    <input type="hidden" name="lec_id" value="{{ lecturer[0] }}">
+                </form>
+            </div>
+
+            <div style="padding: 15px;">
+                {% if not students %}
+                <div>Not found any supervised student</div>
+                {% else %}
+                <table id="students" style="width: 100%; font-size: 14px; border-collapse: collapse;">
+                    {% set ns = namespace(current_level=None, current_cohort=None) %}
+
+                    {% for studId, student in students.items() %}
+                    {% if student['level'] != ns.current_level %}
+                    <tr>
+                        <th colspan="14" style="background-color: #4eafff;">{{ student['level'] }}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="14" style="background-color: white;"></td>
+                    </tr>
+                    {% endif %}
+
+                    {% set ns.current_level = student['level'] %}
+                    {% if student['cohortId'] != ns.current_cohort %}
+                    <tr>
+                        <td colspan="14" style="background-color: white;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="14" style="background-color: #4eacf8; color: whitesmoke;">Internship Period : {{
+                            student['startDate'] }} to {{ student['endDate'] }}</td>
+                    </tr>
+                    <tr>
+                        <th width="1%"></th>
+                        <th width="2%">ID</th>
+                        <th width="8%">Name</th>
+                        <th width="1%">Programme</th>
+                        <th width="10%">Email</th>
+                        <th width="5%">HP</th>
+                        <th width="15%">Company</th>
+                        <th colspan="{{ student['reports']|length }}" width="10%">Report</th>
+                    </tr>
+                    {% set ns.current_cohort = student['cohortId'] %}
+                    {% endif %}
+                    <tr>
+                        <td>
+                            {% if student['gender'] == 'M' %}
+                            <div style="color: #187bcd; font-size: 24px;"><iconify-icon
+                                    icon="fa-solid:male"></iconify-icon></div>
+                            {% elif student['gender'] == 'F' %}
+                            <div style="color: #f5347f; font-size: 24px;"><iconify-icon
+                                    icon="fa-solid:female"></iconify-icon></div>
+                            {% endif %}
+                        </td>
+                        <td><a href="{{ url_for('LecStudentDetails', studentId=student['studentId']) }}" class="idUrl">{{
+                                student['studentId'] }}</a></td>
+                        <td><a href="{{ url_for('LecStudentDetails', studentId=student['studentId']) }}" class="idUrl">{{
+                                student['name'] }}</a></td>
+                        <td>{{ student['programme'] }}</td>
+                        <td>{{ student['email'] }}</td>
+                        <td>{{ student['hp'] }}</td>
+                        {% if student['company'] %}
+                        <td>{{ student['company'] }}</td>
+                        {% else %}
+                        <td>-</td>
+                        {% endif %}
+                        
+                        {% for report in student['reports'] %}
+                        <td>
+                            {% if report['reportStatus'] == 'approved' and report['reportLate'] == 1 %}
+                            <a href="{{ url_for('LecViewReport', studentId=student.studentId, reportType=report.reportType) }}" target="_blank" class="pdfReport" style="background: linear-gradient(to right, #FFA500 , rgb(0, 200, 0)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </a>
+                            {% elif report['reportStatus'] == 'rejected' and report['reportLate'] == 1 %}
+                            <a href="{{ url_for('LecViewReport', studentId=student.studentId, reportType=report.reportType) }}" target="_blank" class="pdfReport" style="background: linear-gradient(to right, #FFA500 , red); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </a>
+                            {% elif report['reportStatus'] == 'approved' %}
+                            <a href="{{ url_for('LecViewReport', studentId=student.studentId, reportType=report.reportType) }}" target="_blank" class="pdfReport" style="color:rgb(0, 200, 0)">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </a>
+                            {% elif report['reportStatus'] == 'rejected' %}
+                            <a href="{{ url_for('LecViewReport', studentId=student.studentId, reportType=report.reportType) }}" target="_blank" class="pdfReport" style="color: red;">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </a>
+                            {% elif report['reportLate'] == 1 %}
+                            <a href="{{ url_for('LecViewReport', studentId=student['studentId'], reportType=report.reportType) }}" target="_blank" class="pdfReport" style="color: #FFA500;">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </a>
+                            {% elif report['reportStatus'] == 'submitted' %}
+                            <a href="{{ url_for('LecViewReport', studentId=student['studentId'], reportType=report.reportType) }}" target="_blank" class="pdfReport" style="color: blue;">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </a>
+                            {% elif report['reportStatus'] == 'pending' %}
+                            <a href="{{ url_for('LecViewReport', studentId=student.studentId, reportType=report.reportType) }}" target="_blank" class="pdfReport" style="color: #808080; cursor: not-allowed;" aria-disabled="true">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </a>
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr>
+        <footer>
+            <p>© 2023 - TAR UMT FOCS ITP</p>
+        </footer>
+    </div>
+
+
+    <script src="/bundles/bootstrap?v=lescQEuG5u4jd-GcVDBcbpUOSyTDIg0Kk9zHDX55GCw1"></script>
+</body>
+
+</html>

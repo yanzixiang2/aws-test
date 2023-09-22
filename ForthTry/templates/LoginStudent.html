@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<style>
+	html {
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	nav {
+		display: flex;
+		top: 0;
+		right: 0;
+		background-color: #334fff;
+		padding: 15px;
+		justify-content: space-between;
+	}
+
+	.homeNav {
+		margin-left: -10px;
+	}
+
+	.otherNav {
+		margin-right: 10px;
+	}
+
+	nav a {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		text-decoration: none;
+		color: #ffffff;
+		font-size: 16px;
+		margin-left: 20px;
+		/* Add margin to space out the links */
+		transition: color 0.3s;
+		/* Smooth color transition on hover */
+	}
+
+	nav a:hover {
+		color: #000000;
+		/* Change the color on hover */
+	}
+
+	body {
+		margin: 0px;
+	}
+
+	.h2,
+	h2 {
+		font-size: 30px;
+	}
+
+	.h1,
+	.h2,
+	.h3,
+	h1,
+	h2,
+	h3 {
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+
+	.h1,
+	.h2,
+	.h3,
+	.h4,
+	.h5,
+	.h6,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: inherit;
+		font-weight: 500;
+		line-height: 1.1;
+		color: inherit;
+	}
+
+	.row {
+		display: flex;
+	}
+
+	.row {
+		margin-right: -15px;
+		margin-left: -15px;
+	}
+
+	.container .jumbotron,
+	.container-fluid .jumbotron {
+		padding-right: 60px;
+		padding-left: 60px;
+	}
+
+	.container .jumbotron,
+	.container-fluid .jumbotron {
+		/* padding-right: 15px;
+    padding-left: 15px; */
+		border-radius: 6px;
+	}
+
+	.jumbotron {
+		padding-top: 48px;
+		padding-bottom: 48px;
+	}
+
+	.jumbotron {
+		margin-left: 200px;
+		margin-right: 200px;
+		padding-top: 30px;
+		padding-bottom: 30px;
+		margin-bottom: 30px;
+		color: inherit;
+		background-color: #eee;
+	}
+
+	.content {
+		display: flex;
+	}
+
+	.logoCol {
+		width: 50px;
+		margin: 10px;
+	}
+
+	.col {
+		margin-left: 150px;
+		float: right;
+		flex: 1;
+		padding: 10px;
+	}
+
+
+
+	.footerRow {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 21px;
+		font-weight: 300;
+		line-height: 1.4;
+		margin-left: 190px;
+		margin-right: 190px;
+	}
+
+	footer {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 14px;
+		font-weight: 300;
+		line-height: 1.4;
+		margin-left: 190px;
+		margin-right: 190px;
+	}
+
+	.jumbotron p,
+	h3 {
+		display: block;
+		margin-block-start: 1em;
+		margin-block-end: 1em;
+		margin-inline-start: 0px;
+		margin-inline-end: 0px;
+		color: rgb(51, 51, 51);
+		font-size: 23px;
+		font-family: Arial;
+	}
+
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	/* Style for the dropdown button */
+	.dropdown-button {
+		padding: 10px;
+		cursor: pointer;
+	}
+
+	/* Style for the dropdown content (hidden by default) */
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #fff;
+		min-width: 120px;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	/* Style for the dropdown options */
+	.dropdown-content a {
+		color: #333;
+		padding: 12px 16px;
+		padding-left: 0px;
+		text-decoration: none;
+		display: block;
+	}
+
+	/*student login css */
+
+	.container-student-login {
+		width: 80%;
+		margin: auto;
+
+	}
+
+	.student-login-form {
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 5px;
+	}
+
+	.student-login-form h1 {
+		text-align: left;
+		color: #444444;
+	}
+
+	.student-login-form input,
+	.student-login-form button {
+		width: 100%;
+		padding: 10px;
+		margin-bottom: 10px;
+		border-radius: 3px;
+	}
+
+	.student-login-form button[type="submit"] {
+		font-size: 14px;
+        width: 10%;
+        background-color: rgb(78, 174, 253);
+        color: #fff;
+	}
+
+	.student-login-form input[type="email"],
+	.student-login-form input[type="text"] {
+		background-color: white;
+		cursor: pointer;
+		width: 30%;
+		border: 1px solid #ccc;
+		padding: 8px;
+		margin: 5px;
+	}
+
+	.student-login-form button[type="submit"]:hover {
+		background-color: #55ff46;
+		cursor: pointer;
+	}
+
+	.label-login-student-email,
+	.label-login-student-ic {
+		font-weight: bold;
+		color: #404040;
+
+	}
+
+	.student-login-form a {
+		text-decoration: none;
+		color: #007bff;
+		margin: 5px;
+	}
+
+	.student-login-line {
+		border: 1px solid #D3D3D3;
+	}
+
+	.container-login-student {
+		display: flex;
+	}
+
+	.login-sub-container {
+		margin-left: 70px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+
+	.student-login-table {
+		width: 100%;
+	}
+
+	td.row-email {
+		width: 120px;
+	}
+</style>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Student Login</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+
+	<nav>
+		<div class="homeNav">
+			<a href="/">Home</a>
+		</div>
+		<div class="otherNav">
+			<a href="#">Company</a>
+			<a href="#">Uni Supervisor</a>
+			<a href="#">Admin</a>
+			<a href="/login_student">Student</a>
+		</div>
+	</nav>
+</head>
+
+<body>
+	<form action="/verifyLogin" autocomplete="on" method="post">
+		<div class="container-student-login">
+			<div class="student-login-form">
+				<h1>Student Login</h1>
+				<hr class="student-login-line">
+				<div class="login-sub-container">
+					<table class="student-login-table">
+						<tr>
+							<td class="row-email">
+								<label class="label-login-student-email">Student Email</label>
+							</td>
+							<td>
+								<input type="email" name="Email" placeholder="Student Email" required>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label class="label-login-student-ic">IC Number</label>
+							</td>
+							<td class="row-ic">
+								<input type="text" name="StudentIc" placeholder="IC Number"
+									title="Please enter a valid IC number" required>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<div style="padding-bottom: 20px; color: red">
+									{{ msg }}
+								</div>
+								<a href="/register_student">Sign up</a>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<button type="submit" value="Login">Login</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<hr class="student-login-line">
+			</div>
+		</div>
+	</form>
+
+	<footer>
+		<p>© 2023 - TAR UMT FOCS ITP</p>
+	</footer>
+</body>
+
+</html>

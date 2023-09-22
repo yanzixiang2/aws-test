@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        nav {
+            display: flex;
+            top: 0;
+            right: 0;
+            background-color: #334FFF;
+            padding: 15px;
+            justify-content: space-between;
+        }
+    
+        .homeNav {
+            margin-left: -10px;
+        }
+    
+        .otherNav {
+            margin-right: 10px;
+        }
+    
+        nav a {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            margin-left: 20px;
+            /* Add margin to space out the links */
+            transition: color 0.3s;
+            /* Smooth color transition on hover */
+        }
+    
+        nav a:hover {
+            color: #000000;
+            /* Change the color on hover */
+        }
+    
+        body {
+            margin: 0px;
+        }
+    
+        .h2,
+        h2 {
+            font-size: 30px;
+        }
+    
+        .h1,
+        .h2,
+        .h3,
+        h1,
+        h2,
+        h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+    
+        .h1,
+        .h2,
+        .h3,
+        .h4,
+        .h5,
+        .h6,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.1;
+            color: inherit;
+        }
+    
+        .row {
+            display: flex;
+        }
+    
+        .row {
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+    
+        .container .jumbotron,
+        .container-fluid .jumbotron {
+            padding-right: 60px;
+            padding-left: 60px;
+        }
+    
+        .container .jumbotron,
+        .container-fluid .jumbotron {
+            /* padding-right: 15px;
+        padding-left: 15px; */
+            border-radius: 6px;
+        }
+    
+        .jumbotron {
+            padding-top: 48px;
+            padding-bottom: 48px;
+        }
+    
+        .jumbotron {
+            margin-left: 200px;
+            margin-right: 200px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+            color: inherit;
+            background-color: #eee;
+        }
+    
+        .content {
+            display: flex;
+        }
+    
+        .logoCol {
+            width: 100%;
+            margin: 10px;
+        }
+    
+        .col {
+            margin-left: 150px;
+            float: right;
+            flex: 1;
+            padding: 10px;
+        }
+    
+    
+    
+        .footerRow {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 21px;
+            font-weight: 300;
+            line-height: 1.4;
+            margin-left: 190px;
+            margin-right: 190px;
+        }
+    
+        footer {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.4;
+            margin-left: 190px;
+            margin-right: 190px;
+        }
+    
+        .jumbotron p,
+        h3 {
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            color: rgb(51, 51, 51);
+            font-size: 23px;
+            font-family: Arial;
+        }
+    
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+    
+        /* Style for the dropdown button */
+        .dropdown-button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    
+        /* Style for the dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #dde1ff;
+            min-width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+    
+        /* Style for the dropdown options */
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            padding-left: 0px;
+            text-decoration: none;
+            display: block;
+        }
+    
+        /*SearchCompany.html */
+        .background-internship {
+            width: 1500px;
+            height: 400px;
+        }
+    
+        .job-container {
+            position: relative;
+            right: 0;
+            width: 1000px;
+        }
+    
+        .job-text-adjust {
+            margin: 10px;
+        }
+    
+        .internship-header {
+            text-align: left;
+            margin: 20px;
+        }
+    
+        .job-ad {
+            width: 480px;
+            height: 400px;
+            margin: 10px;
+            float: left;
+            display: flex;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    
+        .internship-header {
+            font-weight: bold;
+            color: #000000;
+        }
+    
+        .content-company-name,
+        .content-company-title {
+            font-weight: bold;
+        }
+    
+        button {
+            background-color: #00CEFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    
+        button:hover {
+            background-color: #1BFF00;
+        }
+    
+        .job-search-filter {
+            width: 400px;
+            height: 500px;
+            float: left;
+            margin-right: 20px;
+            margin-left: 40px;
+            padding: 10px;
+        }
+    
+        .group-search-company,
+        .group-search-title,
+        .group-search-state,
+        .group-range-allowance,
+        .group-search-allowance {
+            margin-bottom: 30px;
+        }
+    
+        .job-search-filter label {
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+    
+        .job-search-filter input {
+            width: 90%;
+            height: 20px;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+    
+        .job-search-filter select {
+            width: 95.5%;
+            height: 40px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+    
+    
+        .vl {
+            border-left: 1px solid #c3c3c3;
+            height: 500px;
+            margin-right: 10px;
+        }
+    
+        .overall {
+            display: flex;
+        }
+    
+        .div-line {
+            display: flex;
+        }
+    
+        table.job-content {
+            BORDER-SPACING: 0.5EM;
+        }
+    
+        table.job-content h1,
+        h2 {
+            font-weight: bold;
+        }
+    
+        .confirm-filter-company {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    
+        .confirm-filter-company {
+            background-color: #6E2BFF;
+        }
+    
+        table {
+                border-collapse: collapse;
+                font-family: Tahoma, Geneva, sans-serif;
+            }
+            table td {
+                padding: 15px;
+            }
+            table thead td {
+                background-color: #0070fa;
+                color: #ffffff;
+                font-weight: bold;
+                font-size: 13px;
+                border: 1px solid #000000;
+            }
+            table tbody td {
+                color: #000000;
+                border: 1px solid #000000;
+            }
+            table tbody tr {
+                background-color: #77bbff;
+            }
+            table tbody tr:nth-child(odd) {
+                background-color: #b1d3ff;
+            }
+    </style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drop Student</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+
+    <nav>
+        <div class="homeNav">
+            <a href="/">Home</a>
+        </div>
+        <div class="otherNav">
+            <a href="#">Company</a>
+            <a href="#">Uni Supervisor</a>
+            <a href="#">Admin</a>
+            <a href="/login_student">Student</a>
+        </div>
+    </nav>
+</head>
+
+<body>
+    <h1 class="internship-header">Drop Student</h1>    
+        <div class="overall">
+            <div class="div-line">
+                <form action="/filterPickedStudent" autocomplete="on" method="post">
+                    <div class="job-search-filter">
+                        <div class="group-search-company">
+                            <label class="label-search-company">Level</label>
+                            <select name="search-level">
+                                <option value="All">All</option>
+                                {% for level in level_list %}     
+                                <option value="{{level.level}}">{{level.level}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>                    
+
+                        <div class="group-search-title">
+                            <label class="label-search-title">Programme</label>
+                                                   
+                            <select name="search-programme"> 
+                                <option value="All">All</option>           
+                                {% for programme in programme_list %}                        
+                                <option value="{{programme.programme}}">{{programme.programme}}</option>
+                                {% endfor %}                        
+                            </select>
+                        </div>
+                        
+                        <div class="group-search-title">
+                            <label class="label-search-title">Cohort</label>
+                            <select name="search-cohort"> 
+                                <option value="All">All</option>           
+                                {% for cohort in cohort_list %}                        
+                                <option value="{{cohort.cohort}}">{{cohort.cohort}}</option>
+                                {% endfor %}                        
+                            </select>
+                        </div>
+
+                        <div class-group-button>
+                            <button type="submit" name="button-filter" class="confirm-filter-company">Filter</button>
+                            <input type="hidden" name="lec_id" value="{{ session['loginLecturer'] }}">
+                        </div>
+                    </div>
+                </form>
+                    <div class="vl"></div>
+            </div>
+          
+            <div style ="        display: flex;
+            flex-direction: column;
+            align-content: center;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        "> 
+                <div>
+                    <form action="/drop" autocomplete="on" method="POST" enctype="multipart/form-data">  
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>ID</td>
+                                    <td>Name</td>
+                                    <td>Gender</td>
+                                    <td>Email</td>
+                                    <td>Level</td>
+                                    <td>Programme</td>
+                                    <td>Cohort</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                                <input  type="hidden" name="lec_id" value="{{ session['loginLecturer'] }}" >
+                                {% if student_list %}
+                                    {% for student in student_list %}
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="selected_students[]" value="{{ student.student_id }}">
+                                        </td>
+                                        <input type="hidden" name="selected_studentsNames[]" value="{{ student.name }}">
+                                        <td> {{ student.student_id }}</td>
+                                        <td> {{ student.name }}</td>
+                                        <td> {{ student.gender }}</td>
+                                        <td> {{ student.email }}</td>
+                                        <td> {{ student.level }}</td>
+                                        <td> {{ student.programme }}</td>
+                                        <td> {{ student.cohort }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td colspan="8" style="text-align: center;">
+                                            <button type="submit" name="button-filter" style="background-color: #fa4e4e;">Drop</button>
+                                        </td>
+                                        
+                                    </tr>
+                                    {% else %}                      
+                                    <tr>
+                                        <td colspan="8" style="text-align: center;">No student record</td>
+                                    </tr>
+        
+                                    
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            
+        
+                <div>
+                    <form action="/lecHome" autocomplete="on" method="GET" enctype="multipart/form-data">                                                                                
+                        <br><button type="submit" name="button-back">Back</button>
+                    
+                    </form>  
+                </div>    
+             </div> 
+            
+        </div>
+        
+</body>
+<script>
+    // JavaScript code to update selected_students[] and selected_studentsNames[] when checkboxes are clicked
+    const checkboxes = document.querySelectorAll('.student-checkbox');
+    const selectedStudentIds = [];
+    const selectedStudentNames = [];
+    
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (event) => {
+            const studentId = event.target.value;
+            const studentName = event.target.nextElementSibling.textContent; // Get the name from the adjacent TD element
+
+            if (event.target.checked) {
+                // Add the student ID and name to the respective arrays
+                selectedStudentIds.push(studentId);
+                selectedStudentNames.push(studentName);
+            } else {
+                // Remove the student ID and name from the respective arrays
+                const idIndex = selectedStudentIds.indexOf(studentId);
+                if (idIndex !== -1) {
+                    selectedStudentIds.splice(idIndex, 1);
+                }
+
+                const nameIndex = selectedStudentNames.indexOf(studentName);
+                if (nameIndex !== -1) {
+                    selectedStudentNames.splice(nameIndex, 1);
+                }
+            }
+        });
+    });
+
+    // Add an event listener to the submit button to update the hidden input fields
+    const submitButton = document.getElementById('submit-button');
+    submitButton.addEventListener('click', () => {
+        // Update the hidden input fields with the selected student IDs and names
+        const selectedStudentIdsInput = document.createElement('input');
+        selectedStudentIdsInput.type = 'hidden';
+        selectedStudentIdsInput.name = 'selected_student_ids';
+        selectedStudentIdsInput.value = selectedStudentIds.join(',');
+        document.querySelector('form').appendChild(selectedStudentIdsInput);
+
+        const selectedStudentNamesInput = document.createElement('input');
+        selectedStudentNamesInput.type = 'hidden';
+        selectedStudentNamesInput.name = 'selected_student_names';
+        selectedStudentNamesInput.value = selectedStudentNames.join(',');
+        document.querySelector('form').appendChild(selectedStudentNamesInput);
+     
+    });
+</script>
+
+</html>

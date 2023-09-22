@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Lecture Output</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+        body {
+            margin: 0px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        nav {
+            display: flex;
+            top: 0;
+            right: 0;
+            background-color: #334FFF;
+            padding: 15px;
+            justify-content: space-between;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            margin-left: 20px;
+            /* Add margin to space out the links */
+            transition: color 0.3s;
+            /* Smooth color transition on hover */
+        }
+
+        .form {
+            width: 100%;
+            display: flex;
+            padding: 5px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .form .form-label {
+            width: 40%;
+            font-weight: bold;
+            text-align: left;
+            padding-right: 20px;
+        }
+
+        .btn {
+            font-size: 14px;
+        }
+
+        .panel-main {
+            border: 1px solid #ddd;
+			border-radius: 5px;
+			margin: 20px 0px;
+			width: 400px;
+			display: block;
+			position: relative;
+			left: 450px;
+        }
+
+        .panel-main .panel-header {
+            background-color: #4447ff;
+            color: rgb(255, 255, 255);
+            border-color: #ddd;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        i {
+            font-family: "Font Awesome";
+        }
+
+        #students th {
+            padding: 5px 0px;
+            text-align: left;
+            background-color: #333;
+            color: white;
+        }
+
+        #students td, #students th {
+            padding: 5px;
+        }
+
+        .form img {
+  object-fit: contain;
+}
+
+.acc-btn {
+        background-color: #0077ff;
+        /* Green */
+        color: #fff;
+        /* White text */
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        height: 37.6px;
+    }
+
+    .acc-btn:hover {
+        background-color: #00ff00;
+        /* Darker Green on hover */
+    }
+
+    .dec-btn {
+        background-color: #0077ff;
+        /* Red */
+        color: #fff;
+        /* White text */
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-decoration: none;
+    }
+
+    .dec-btn:hover {
+        background-color: #ff0000;
+        /* Darker Red on hover */
+    }
+        #students tr:nth-child(even){background-color: #f2f2f2;}
+        #students tr:hover {background-color: #ddd;}
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+
+    <script>
+        $(document).ready(function() {
+            var genderValue = "{{gender}}"; // Replace with your actual value
+
+            var maleRadio = document.getElementById("male");
+            var femaleRadio = document.getElementById("female");
+
+            if (genderValue === "M") {
+                maleRadio.checked = true;
+            } else if (genderValue === "F") {
+                femaleRadio.checked = true;
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+    <nav>
+        <div class="homeNav">
+            <a href="/lecHome">Home</a>
+        </div>
+        <div class="otherNav">
+            <a href="/logoutlec">Log Out</a>
+        </div>
+    </nav>
+
+    <div style="margin: 20px 100px; padding: 10px;">
+
+        <h2 style="font-weight: 500;">Welcome : {{ name }}</h2>
+        <hr>
+
+        <!-- LECTURER INFORMATION -->
+        <div class="panel-main">
+            <div class="panel-header">
+                <div>Edit Profile</div>
+            </div>
+            <div style="padding: 15px; width: 500px;">
+				<div>
+					<form action="/editlec" autocomplete="on" method = "POST" enctype="multipart/form-data">                                         
+                        <img src="{{ image_url }}" style="width: 300px; height: 200px; position: relative; left: 38px;">   
+                        <div class="form">
+                             					
+                            <div class="form-data"><input style="position: relative; left: 140px;" type=file name="lec_image_file" value="{{ image_url}}" > </div>
+						</div>
+                        <br>
+						<div class="form">
+							<input  type="hidden" value="{{ id }}" name="lec_id" autofocus size="40">
+
+							<input  type="hidden" name="password" value="{{ psw}}" >		  		    		  		        		  		       		  		        
+
+							<input type=hidden name="lec_image_file"  value="{{ image_url}}"> <br><br>
+							
+							<div class="form-label">Name</div>
+							<div class="form-data"><input  type="text" name="name" value="{{ name}}" ></div>
+						</div>
+						<div class="form">
+							<div class="form-label">Gender</div>
+							<div class="form-data">
+                                <input type="radio" name="gender" value="M" id="male" data-gender="{{gender}}" >
+                                <label for="male">Male</label>
+                                <input type="radio" name="gender" value="F" id="female" data-gender="{{gender}}">
+                                <label for="female">Female</label>
+                            </div>
+                            
+						</div>
+						<div class="form">
+							<div class="form-label">Email</div>
+							<div class="form-data"> <input  type="email" name="email" value="{{ email}}" ></div>
+						</div>
+						<div class="form">
+							<div class="form-label">Expertise</div>
+							<div class="form-data"><input  type="text" name="expertise" value="{{ expertise}}" ></div>
+						</div>
+                       
+						<br><br>
+                        <div style="position:relative; left:50px;">
+                            <a href="/lecHome" class="dec-btn">BACK</a>
+                            <button type="submit" name="action" value="update" class="acc-btn">UPDATE DATABASE</button>
+                        </div>
+					</form>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+        <footer>
+            <p>© 2023 - TAR UMT FOCS ITP</p>
+        </footer>
+    </div>
+
+
+    <script src="/bundles/bootstrap?v=lescQEuG5u4jd-GcVDBcbpUOSyTDIg0Kk9zHDX55GCw1"></script>
+</body>
+
+</html>

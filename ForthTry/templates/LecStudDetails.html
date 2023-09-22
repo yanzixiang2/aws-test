@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details | Lecturer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+        body {
+            margin: 0px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        nav {
+            display: flex;
+            top: 0;
+            right: 0;
+            background-color: #334fff;
+            padding: 15px;
+            justify-content: space-between;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            margin-left: 20px;
+            /* Add margin to space out the links */
+            transition: color 0.3s;
+            /* Smooth color transition on hover */
+        }
+
+        .footerRow {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 21px;
+            font-weight: 300;
+            line-height: 1.4;
+            margin-left: 190px;
+            margin-right: 190px;
+        }
+
+        footer {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.4;
+            margin-left: 190px;
+            margin-right: 190px;
+        }
+
+        .panel-main {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 20px 10px;
+            width: 47%;
+        }
+
+        .panel-main .panel-header {
+            background-color: #f5f5f5;
+            color: rgb(0, 0, 0);
+            border-color: #ddd;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #students th {
+            padding: 5px 0px;
+            text-align: left;
+            background-color: rgb(0, 0, 0);
+            color: white;
+        }
+
+        #students td,
+        #students th {
+            padding: 5px;
+        }
+
+        #students tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #students tr:hover {
+            background-color: #ddd;
+        }
+
+        .idUrl {
+            color: #005295;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .idUrl:hover,
+        .idUrl:active {
+            color: #187bcd;
+            text-decoration: none;
+        }
+
+        .form {
+            width: 100%;
+            display: flex;
+            padding: 5px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .form .form-label {
+            width: 35%;
+            font-weight: bold;
+            text-align: end;
+            padding-right: 50px;
+            margin-bottom: 0px;
+        }
+
+        .remark {
+            width: 100%;
+            padding: 5px 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            resize: none;
+        }
+    </style>
+    <script>
+        function adjustTextareaCols(textarea) {
+            // Get references to the div and textarea elements
+            var container = textarea.parentNode;
+
+            // Calculate the number of characters that can fit within the div's width
+            var containerWidth = container.offsetWidth;
+            var charWidth = parseFloat(getComputedStyle(textarea).width) / textarea.cols;
+            var cols = Math.floor(containerWidth / charWidth);
+
+            // Set the cols attribute of the textarea
+            textarea.cols = cols;
+        }
+
+        function adjustAllTextareas() {
+            var textareas = document.querySelectorAll('.remark');
+            textareas.forEach(function (textarea) {
+                adjustTextareaCols(textarea);
+            });
+        }
+
+        // Call the adjustAllTextareas function when the page loads and when it resizes
+        window.addEventListener('load', adjustAllTextareas);
+        window.addEventListener('resize', adjustAllTextareas);
+    </script>
+</head>
+
+<body>
+    <nav>
+        <div class="homeNav">
+            <a href="/lecHome">Home</a>
+        </div>
+        <div class="otherNav">
+            <a href="/logoutlec">Log Out</a>
+        </div>
+    </nav>
+
+    <div style="margin: 20px 100px; padding: 10px;">
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px;">
+            <div>
+                <h3 style="font-weight: 500;">Student Details</h3>
+            </div>
+            <div><a href="/lecHome" class="btn btn-outline-secondary" style="font-size: 14px;">&lt;&lt; Back</a></div>
+        </div>
+        <div style="padding-bottom: 5px;">
+            {% if student[4] == 'M' %}
+            <div style="color: #187bcd;">
+                <iconify-icon icon="fa-solid:male" style="font-size: 16px;"></iconify-icon>
+                {{ student[1] }} [{{ student[0] }}]
+            </div>
+            {% elif student[4] == 'F' %}
+            <div style="color: #f5347f;">
+                <iconify-icon icon="fa-solid:female" style=" font-size: 16px;"></iconify-icon>
+                {{ student[1] }} [{{ student[0] }}]
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Student -->
+        <div style="display: flex; justify-content: space-between; font-size: 14px;">
+            <!-- show student details -->
+            <div style="width: 50%;">
+                <div class="form">
+                    <div class="form-label">IC</div>
+                    <div class="form-data">{{ student[2] }}</div>
+                </div>
+                <div class="form">
+                    <div class="form-label">Mobile Number</div>
+                    <div class="form-data">{{ student[3] }}</div>
+                </div>
+                <div class="form">
+                    <div class="form-label">Email</div>
+                    <div class="form-data">{{ student[6] }}</div>
+                </div>
+                <div class="form">
+                    <div class="form-label">Programme</div>
+                    <div class="form-data">{{ student[8] }}</div>
+                </div>
+                <div class="form">
+                    <div class="form-label">Cohort</div>
+                    <div class="form-data">{{ student[10] }}</div>
+                </div>
+            </div>
+            <!-- show supporting document -->
+            <div style="margin-right: 150px; border: 2px solid #005295; border-radius: 5px;">
+                <div style="padding: 10px;">
+                    <div><a href="{{ url_for('LecViewDoc', studentId=student[0], type='resume') }}" target="_blank"
+                            class="idUrl">Resume</a></div>
+                    <div><a href="{{ url_for('LecViewDoc', studentId=student[0], type='comAcc') }}" target="_blank"
+                            class="idUrl">Company Acceptance Form</a></div>
+                    <div><a href="{{ url_for('LecViewDoc', studentId=student[0], type='parentAck') }}" target="_blank"
+                            class="idUrl">Parent Acknowledgement Form</a></div>
+                    <div><a href="{{ url_for('LecViewDoc', studentId=student[0], type='indemnity') }}" target="_blank"
+                            class="idUrl">Letter of Indemnity</a></div>
+                    <div><a href="{{ url_for('LecViewDoc', studentId=student[0], type='hiredEvi') }}" target="_blank"
+                            class="idUrl">Hired Evidence</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report -->
+        {% if reports %}
+        <div
+            style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; font-size: 14px;">
+            {% for report in reports %}
+            <div class="panel-main">
+                <div class="panel-header">
+                    <div>{{ report[2] }}</div>
+                    <div></div>
+                </div>
+                <div style="padding: 15px;">
+                    <div style="display: flex;">
+                        <div style="padding: 0px 20px 0px 10px;"><a
+                                href="{{ url_for('LecViewReport', studentId=student[0], reportType=report[2]) }}" target="_blank"
+                                class="idUrl"><iconify-icon icon="iwwa:file-pdf"
+                                    style="font-size: 150px;"></iconify-icon></a></div>
+                        <div>
+                            {% if report[3] != 'pending' %}
+                            <div style="padding-bottom: 15px;">
+                                Submitted Date : {{ report[1] }}
+                                {% if report[4] == 1 %}
+                                <span style="color: #FFA500;">(late)</span>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            {% if report[3] == 'submitted' %}
+                            <form action="/updateReportStatus" method="POST" enctype="multipart/form-data">
+                                <div style="padding-bottom: 15px;">
+                                    Remark
+                                    <div class="remarkForm"><textarea name="remark" rows="4" cols="45"
+                                            class="remark"></textarea></div>
+                                </div>
+                                <input type="submit" name="status" value="Approve" class="btn btn-success" style="font-size: 14px;" />
+                                <input type="submit" name="status" value="Reject" class="btn btn-danger" style="font-size: 14px;" />
+                                <input type="hidden" value="{{ report[2] }}" name="reportType" />
+                                <input type="hidden" value="{{ student[0] }}" name="studentId" />
+                            </form>
+                            {% else %}
+                            {% if report[5] %}
+                            <div style="padding-bottom: 10px;">
+                                Remark <div>{{ report[5] }}</div>
+                            </div>
+                            {% endif %}
+                            {% if report[3] == 'approved'%}
+                            <div class="btn btn-success" style="font-size: 14px; cursor: default;">Approved</div>
+                            {% elif report[3] == 'rejected' %}
+                            <div class="btn btn-danger" style="font-size: 14px; cursor: default;">Rejected</div>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <hr>
+    <footer>
+        <p>© 2023 - TAR UMT FOCS ITP</p>
+    </footer>
+    </div>
+
+
+    <script src="/bundles/bootstrap?v=lescQEuG5u4jd-GcVDBcbpUOSyTDIg0Kk9zHDX55GCw1"></script>
+</body>
+
+</html>

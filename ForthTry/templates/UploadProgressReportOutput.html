@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Emp Output</title>
+	<style>
+        body {
+          font-family: Avenir, sans-serif;
+          color: #333;
+          background-color: #f5f5f5;
+        }
+    
+        h1, h2, h3, h4, h5, h6 {
+          font-weight: 500;
+          line-height: 1.2;
+        }
+    
+        h1 {
+          font-size: 2rem;
+        }
+    
+        h2 {
+          font-size: 1.8rem;
+        }
+    
+        h3 {
+          font-size: 1.6rem;
+        }
+    
+        h4 {
+          font-size: 1.4rem;
+        }
+    
+        h5 {
+          font-size: 1.2rem;
+        }
+    
+        h6 {
+          font-size: 1rem;
+        }
+    
+        .container {
+          max-width: 960px;
+          margin: 0 auto;
+        }
+    
+        .center {
+          text-align: center;
+        }
+    
+        .button {
+          background-color: #333;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+          border-radius: 3px;
+        }
+    
+        .button:hover {
+          background-color: #444;
+        }
+                table {
+                    border-collapse: collapse;
+                    font-family: Tahoma, Geneva, sans-serif;
+                }
+                table td {
+                    padding: 15px;
+                }
+                table thead td {
+                    background-color: #0070fa;
+                    color: #ffffff;
+                    font-weight: bold;
+                    font-size: 13px;
+                    border: 1px solid #000000;
+                }
+                table tbody td {
+                    color: #000000;
+                    border: 1px solid #000000;
+                }
+                table tbody tr {
+                    background-color: #77bbff;
+                }
+                table tbody tr:nth-child(odd) {
+                    background-color: #b1d3ff;
+                }
+        </style>
+</head>
+
+<body>
+    <form action="/student_home" autocomplete="on" method="POST" enctype="multipart/form-data">
+        <div class="container">
+            <h1>UPLOAD SUCCESSFUL!</h1>
+            <h2>{{ studentName }} [{{ id }}]</h2>
+            <h2>Great Job! You have submitted your report.</h2>
+            <br>
+            <button type="submit" class="btn btn-success">Back to home</button>
+        </div>
+    </form>
+</body>
+
+</html>

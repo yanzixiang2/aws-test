@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Register Company</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/company.css')}}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+
+	<nav>
+		<div class="homeNav">
+			<a href="#">Home</a>
+		</div>
+		<div class="otherNav">
+			<div class="dropdown">
+				<a class="dropdown-button" onclick="toggleDropdown()">Company</a>
+				<div id="dropdownOptions" class="dropdown-content">
+					<a href="/register_company">Sign Up</a>
+					<a href="/login_company">Login</a>
+				</div>
+			</div>
+			<a href="#">Uni Supervisor</a>
+			<a href="#">Admin</a>
+			<a href="#">Student</a>
+		</div>
+
+	</nav>
+</head>
+
+<body>
+
+	<form action="/addemp" autocomplete="on" method="POST" enctype="multipart/form-data">
+
+		<!-- <button type="submit" formaction="/getemp" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br> -->
+		<div>
+			<div class="tab">
+				<legend>Register Company</legend>
+			</div>
+			<div>
+				<table>
+					<tr>
+						<td>
+							<label class="label">Name:</label>
+						</td>
+						<td>
+							<input class="inputText" type="text" name="emp_id" autofocus size="40">
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<label class="label">Company Logo:</label>
+						</td>
+						<td>
+							<input class="uploadCompLogo" type=file name="emp_image_file">
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<label class="label">About Company:</label>
+						</td>
+						<td>
+							<input class="inputText" type="text" name="last_name">
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<label class="label">Phone Number (+60):</label>
+						</td>
+						<td>
+							<input class="inputText" name="pri_skill">
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<label class="label">Email:</label>
+						</td>
+						<td>
+							<input class="inputText" type="text" name="location">
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<label class="label">Address:</label>
+						</td>
+						<td>
+							<input class="inputText" type="text" name="first_name">
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<button class="submitBtn" type="submit">Register</button>
+
+	</form>
+	<!-- <a href="/about">About Us</a> -->
+</body>
+
+
+</html>

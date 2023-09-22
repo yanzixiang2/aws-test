@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<style>
+    nav {
+        display: flex;
+        top: 0;
+        right: 0;
+        background-color: #334fff;
+        padding: 15px;
+        justify-content: space-between;
+    }
+
+    .homeNav {
+        margin-left: -10px;
+    }
+
+    .otherNav {
+        margin-right: 10px;
+    }
+
+    nav a {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 16px;
+        margin-left: 20px;
+        /* Add margin to space out the links */
+        transition: color 0.3s;
+        /* Smooth color transition on hover */
+    }
+
+    nav a:hover {
+        color: #020202;
+        /* Change the color on hover */
+    }
+
+    body {
+        margin: 0px;
+    }
+
+    .h2,
+    h2 {
+        font-size: 30px;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    h1,
+    h2,
+    h3 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.1;
+        color: inherit;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .container .jumbotron,
+    .container-fluid .jumbotron {
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+
+    .container .jumbotron,
+    .container-fluid .jumbotron {
+        /* padding-right: 15px;
+    padding-left: 15px; */
+        border-radius: 6px;
+    }
+
+    .jumbotron {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .jumbotron {
+        margin-left: 200px;
+        margin-right: 200px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+        color: inherit;
+        background-color: #eee;
+    }
+
+    .content {
+        display: flex;
+    }
+
+    .logoCol {
+        width: 100%;
+        margin: 10px;
+    }
+
+    .col {
+        margin-left: 150px;
+        float: right;
+        flex: 1;
+        padding: 10px;
+    }
+
+
+
+    .footerRow {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 21px;
+        font-weight: 300;
+        line-height: 1.4;
+        margin-left: 190px;
+        margin-right: 190px;
+    }
+
+    footer {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.4;
+        margin-left: 190px;
+        margin-right: 190px;
+        text-align: center;
+    }
+
+    .jumbotron p,
+    h3 {
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        color: rgb(51, 51, 51);
+        font-size: 23px;
+        font-family: Arial;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Style for the dropdown button */
+    .dropdown-button {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    /* Style for the dropdown content (hidden by default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 120px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    /* Style for the dropdown options */
+    .dropdown-content a {
+        color: #333;
+        padding: 12px 16px;
+        padding-left: 0px;
+        text-decoration: none;
+        display: block;
+    }
+
+    /* Page-specific styles */
+    .track-header h1 {
+        margin: 20px;
+        font-weight: bold;
+    }
+
+    /* Adjusted table styles */
+    .track-application-table {
+        border-spacing: 1;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 95%;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .track-application-table th {
+        height: 60px;
+        background: #6e43fa;
+        font-weight: unset;
+        color: rgb(255, 255, 255);
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .track-application-table tr {
+        height: 50px;
+        font-size: 15px;
+        color: rgb(0, 0, 0);
+        line-height: 1.2;
+        font-weight: unset;
+        font-family: OpenSans-Regular;
+    }
+
+    .track-application-table td {
+        text-align: center;
+        padding: 18px;
+    }
+
+    .track-application-table tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 0.4em 0.6em;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25rem;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+
+
+    .badge-success {
+        color: #fff;
+        background-color: #28a745;
+    }
+
+    .badge-reject {
+        color: #fff;
+        background-color: #dc3545;
+    }
+
+    .badge-pending {
+        color: #fff;
+        background-color: #F0E68C;
+    }
+
+    .search {
+        float: right;
+        margin-right: 45px;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .search input {
+        width: 400px;
+        height: 32px;
+        background: #fcfcfc;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset;
+    }
+
+    .search input {
+        text-indent: 32px;
+    }
+
+    .search button {
+        height: 32px;
+        width: 100px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: transparent;
+        cursor: pointer;
+        text-align: right;
+        border: none;
+        font-size: 20px;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination a {
+        color: #333;
+        padding: 5px 10px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        margin: 0 5px;
+        border-radius: 4px;
+    }
+
+    .pagination a:hover {
+        background-color: #f5f5f5;
+    }
+
+    .pagination .active {
+        background-color: rgb(97, 66, 235);
+        color: #fff;
+    }
+
+    .button-back {
+        display: inline-block;
+        padding: 10px 20px;
+        color: black;
+        /* Adjust the text color to your preference */
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <nav>
+        <div class="homeNav">
+            <a href="/">Home</a>
+        </div>
+        <div class="otherNav">
+            <div class="dropdown">
+                <a class="dropdown-button" onclick="toggleDropdown()">Company</a>
+                <div id="dropdownOptions" class="dropdown-content">
+                    <a href="/register_company">Sign Up</a>
+                    <a href="/login_company">Login</a>
+                </div>
+            </div>
+            <a href="#">Uni Supervisor</a>
+            <a href="#">Admin</a>
+            <a href="/login_student">Student</a>
+        </div>
+
+    </nav>
+</head>
+
+<body>
+    <div class="header">
+        <div class="track-header">
+            <a href="/student_home" class="button-back"><i class="fa fa-arrow-left" style="font-size:36px"></i></a>
+            <h1>Track Company Application</h1>
+        </div>
+        <form action="/studentApplyCompany" autocomplete="on" name="apply" method="GET">
+            <div class="search-company">
+                <div class="search">
+                    <input type="text" placeholder="Search company here..." name="search">
+                    <button type="submit"><span class="fa fa-search"></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <table class="track-application-table">
+        <tr>
+            <th style="width:250px;">Company Name</th>
+            <th style="width:250px;"> Job Position</th>
+            <th>Job Location</th>
+            <th style="width:180px;">Application Date</th>
+            <th style="width:180px;">Application Status</th>
+        </tr>
+        {% for application in applications %}
+        <tr>
+            <td>{{ application.company_name }}</td>
+            <td>{{ application.job_position }}</td>
+            <td>{{ application.job_location }}</td>
+            <td>{{ application.applyDateTime.strftime('%Y-%m-%d') }}</td>
+            <td><span class="badge badge-pending">{{ application.status }}</span></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="pagination">
+        <a href="{{ url_for('studentApplyCompany', page=1) }}" class="prev" {% if current_page==1
+            %}style="display:none;" {% endif %}>Previous</a>
+
+        {% for page in range(1, num_pages + 1) %}
+        {% if page == current_page %}
+        <a href="#" class="active">{{ page }}</a>
+        {% else %}
+        <a href="{{ url_for('studentApplyCompany', page=page) }}">{{ page }}</a>
+        {% endif %}
+        {% endfor %}
+
+        <a href="{{ url_for('studentApplyCompany', page=num_pages) }}" class="next" {% if current_page==num_pages or
+            num_pages==0 %}style="display:none;" {% endif %}>Next</a>
+    </div>
+
+    <hr>
+    <footer>
+        <p>© 2023 - TAR UMT FOCS ITP</p>
+    </footer>
+
+    <script src="/bundles/bootstrap?v=lescQEuG5u4jd-GcVDBcbpUOSyTDIg0Kk9zHDX55GCw1"></script>
+
+    <script>
+        function toggleDropdown() {
+            var dropdownOptions = document.getElementById("dropdownOptions");
+            if (dropdownOptions.style.display === "block") {
+                dropdownOptions.style.display = "none";
+            } else {
+                dropdownOptions.style.display = "block";
+            }
+        }
+
+        // Add a click event listener to the document
+        document.addEventListener("click", function (event) {
+            var dropdown = document.querySelector(".dropdown");
+            if (!dropdown.contains(event.target)) {
+                // Clicked outside the dropdown, so close it
+                var dropdownOptions = document.getElementById("dropdownOptions");
+                dropdownOptions.style.display = "none";
+            }
+        });
+    </script>
+</body>

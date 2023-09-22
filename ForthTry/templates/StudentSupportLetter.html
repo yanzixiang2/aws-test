@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data['studentId'] }}_SupportLetter</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* Reset some default styles */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.5;
+        }
+
+        /* Add styles to the container */
+        .container {
+            max-width: 210mm;
+            /* 8.27 inches */
+            margin: 0 auto;
+            /* Center the container horizontally */
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            /* Include padding and border in the width calculation */
+        }
+
+        /* General style for details field */
+        .details {
+            display: block;
+            margin: 20px 0;
+            padding: auto;
+            text-align: justify;
+        }
+
+        /* Add styles to the logo-details section */
+        .logo-details {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 10px 20px 10px;
+            /* top right bottom left */
+            border-bottom: 1px solid #cdcdcd;
+            color: darkslateblue;
+        }
+
+        /* Style the logo image */
+        .logo-img {
+            max-width: 325px;
+            height: auto;
+        }
+
+        /* Style the information text */
+        .info-text {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            font-size: 14px;
+        }
+
+        .today-date {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .row .col-md-3 {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Style the list items within the "details" div */
+        .details ul {
+            padding-left: 20px;
+            /* Add some left padding for better indentation */
+        }
+
+        /* Footer */
+        .footer {
+            font-family: Arial, Helvetica, sans-serif;
+            color: darkslateblue;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            padding: 10px;
+            /* Add padding to the footer */
+            /* background-color: #f0f0f0; */
+            /* Add a background color for the footer */
+            width: 100%;
+            /* Make the footer full width */
+            box-sizing: border-box;
+            /* Include padding and border in the total width */
+        }
+
+        .footer .footer-item {
+            flex: 1;
+            /* Distribute space equally among footer items */
+            padding: 10px;
+            /* Add some padding to footer items */
+            text-align: center;
+            /* Center-align the text */
+        }
+
+        .footer .footer-item:first-child {
+            text-align: left;
+            /* Align the first item to the left */
+        }
+
+        .footer .footer-item:last-child {
+            text-align: right;
+            /* Align the last item to the right */
+        }
+
+        /* Style the images with gaps */
+        .sponsorship-img {
+            margin: 5px;
+            /* Add margin to create gaps between images */
+            max-width: 60px;
+            /* Limit the maximum width of images */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+
+        /* Style for student details */
+        .row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .header {
+            width: 20%;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .text {
+            width: 60%;
+            font-weight: normal;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Whole body -->
+    <div class="container">
+        <div class="logo-details">
+            <img class="logo-img" alt="TAR UMT logo" src="{{ url_for('static', filename='images/tarumt.png') }}"
+                alt="TARUMT-logo" />
+            <span class="info-text">
+                <span class="tarumt-name"
+                    style="font-size: 14px; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+                    TUNKU ABDUL RAHMAN UNIVERSITY
+                    OF MANAGEMENT AND TECHNOLOGY
+                </span>
+                <span class="tarumt-details" style="font-family: Arial, Helvetica, sans-serif;">
+                    DU058(W) Wholly owned by the TARC Education
+                    (Reg. No.: 201301003979 (1033820-M))
+                </span>
+            </span>
+        </div>
+
+        <div class="details">
+            <span class="today-date">{{ data['todayDate'] }}</span>
+        </div>
+
+        <div class="details">
+            <b>To whom it may concern</b>
+        </div>
+
+        <!-- Letter title -->
+        <div class="details" style="text-decoration: underline;">
+            <b>Industrial Training Programme offered by the Faculty of Computing and Information Technology, Tunku Abdul
+                Rahman University of Management and Technology (TAR UMT)
+            </b>
+        </div>
+
+        <!-- Letter description -->
+        <div class="details">
+            This is to acknowledge that the following student is a TAR UMT student currently undergoing the programme as
+            mentioned
+            below:
+        </div>
+
+        <!-- Student details -->
+        <div class="details">
+            <div class="row">
+                <div class="header">
+                    Student Name:
+                </div>
+                <div class="text">
+                    <b>{{ data['studentName'] }}</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="header">
+                    Student ID:
+                </div>
+                <div class="text">
+                    <b>{{ data['studentId'] }}</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="header">
+                    Programme:
+                </div>
+                <div class="text">
+                    <b>{{ data['programme'] }}</b>
+                </div>
+            </div>
+        </div>
+
+        <div class="details">
+            It is a requirement for students pursuing a Bachelor Degree (Honours) in the Faculty of Computing and
+            Information
+            Technology, Tunku Abdul Rahman University of Management and Technology (TAR UMT) to undergo a period of
+            industrial training with the industry. The above mentioned student has to undergo Industrial Training
+            programme which will commence on <b>{{ data['startDate'] }}</b> and ends on <b>{{ data['endDate'] }}</b>.
+        </div>
+
+        <div class="details">
+            The main objective of the industrial training programme is to provide students with practical training
+            opportunities in one
+            or more of the following areas:
+        </div>
+
+        <!-- Knowledge and skill bullets -->
+        <div class="details">
+            <ul>
+                <li>Programming</li>
+                <li>Networking</li>
+                <li>Technical/System Support</li>
+                <li>Other relevant IT skills</li>
+            </ul>
+        </div>
+
+        <div class="details">
+            In view of the above, we would like your esteemed organization to consider accepting our students for the
+            industrial training
+            placements. We believe with the expert guidance and experience of your esteemed organisation, our students
+            will acquire
+            relevant practical skills and experience which would be valuable to the students later in their working
+            life.
+        </div>
+
+        <div class="details">
+            In accepting our students, we understand that you have read and agree with the <b>Guidelines for
+                Companies</b>
+            which we have
+            sent to you earlier or will send to you again upon request. In selecting our students into your
+            establishment for the purpose
+            of industrial training, you are encouraged to carry out your normal practice or procedure of evaluation and
+            selection of the
+            students, such as, test and interviews. The companies involved have all the right to demand formal documents
+            (eg. ID card,
+            transcripts) from the students for verification purposes. Please deal with the students <b>directly</b> for
+            the
+            entire process but do
+            not hesitate to contact our Industrial Training Programme (ITP) committee should you have any queries or
+            problems arising.
+            All the relevant contacts can be found in the Guidelines for Companies.
+        </div>
+
+        <div class="details">
+            Thank you.
+        </div>
+
+        <div class="details">
+            Yours faithfully,
+        </div>
+
+        <div class="details">
+            Ms Kong Hooi Ming<br>
+            Associate Dean<br>
+            Department of Information Systems and Security<br>
+            Faculty of Computing and Information Technology<br>
+            Tunku Abdul Rahman University of Management and Technology
+        </div>
+
+        <div class="details" style="padding-bottom: 0;">
+            <div class="footer">
+                <!-- Address -->
+                <div class="footer-item">
+                    Campus:<br>
+                    JALAN GENTING KELANG,SETAPAK,<br>
+                    53300, KUALA LUMPUR, MALAYSIA.
+                </div>
+                <!-- Contact details -->
+                <div class="footer-item">
+                    TEL: (6) 03 4145 0100/23<br>
+                    WEBSITE: www.tarc.edu.my
+                </div>
+                <!-- Sponsored companies -->
+                <div class="footer-item">
+                    <div class="img-contents">
+                    </div>
+                    <img class="sponsorship-img" alt="PDTI" src="{{ url_for('static', filename='images/PDTI.png') }}"
+                        alt="PDTI-logo" />
+                    <img class="sponsorship-img" alt="MSC" src="{{ url_for('static', filename='images/MSC.png') }}"
+                        alt="MSC-logo" />
+                    <img class="sponsorship-img" alt="SETARA"
+                        src="{{ url_for('static', filename='images/SETARA.png') }}" alt="SETARA-logo" />
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

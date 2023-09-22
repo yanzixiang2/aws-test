@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Company Profile</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}"/>
+	  <style>
+    .container {
+      width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: DodgerBlue;
+    }
+
+    form {
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .success-message {
+      display: none;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+		<h1>Employee Database</h1>
+
+		<body>
+
+			<form action="/addemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
+
+				<button type="submit" formaction="/getemp" >GET EMPLOYEE INFORMATION</button><br><br>
+
+		  		CompanyName:<br> <input type="number" name="emp_id" autofocus size="40"><br><br>
+
+		  		First Name:<br> <input type="text" name="first_name" ><br><br>
+
+		  		Last Name:<br> <input type="text" name="last_name"><br><br>
+
+		  		Primary Skills:<br> <input type="text" name="pri_skill"><br><br>
+
+		  		Location:<br> <input type="text" name="location"><br><br>
+
+		  		Image: <input type=file name="emp_image_file" > <br><br>
+
+		  		<button type="submit" >UPDATE DATABASE</button>
+
+			</form>
+            <a href="/about">About Us</a>
+		</body>
+</html>

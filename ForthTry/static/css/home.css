@@ -1,0 +1,126 @@
+nav {
+    display: flex;
+    top: 0;
+    right: 0;
+    background-color: #1f1f1f;
+    padding: 15px;
+    justify-content: space-between;
+}
+
+.homeNav{
+    margin-left: -10px;
+}
+
+.otherNav{
+    margin-right: 10px;
+}
+
+nav a {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    text-decoration: none;
+    color: #b9b9b9;
+    font-size: 16px;
+    margin-left: 20px; /* Add margin to space out the links */
+    transition: color 0.3s; /* Smooth color transition on hover */
+}
+
+nav a:hover {
+    color: #ff6600; /* Change the color on hover */
+}
+
+body{
+    margin: 0px;
+}
+
+.h2, h2 {
+    font-size: 30px;
+}
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+.row {
+    display: flex;
+}
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.container .jumbotron, .container-fluid .jumbotron {
+    padding-right: 60px;
+    padding-left: 60px;
+}
+.container .jumbotron, .container-fluid .jumbotron {
+    /* padding-right: 15px;
+    padding-left: 15px; */
+    border-radius: 6px;
+}
+
+.jumbotron {
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
+.jumbotron {
+    margin-left: 200px;
+    margin-right: 200px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color: #eee;
+}
+
+.content{
+    display: flex;
+}
+
+.logoCol{
+    width: 50px;
+    margin: 10px;
+}
+
+.col {
+    margin-left: 150px;
+    float: right;
+    flex: 1;
+    padding: 10px;
+}
+
+
+
+.footerRow{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 21px;
+    font-weight: 300;
+    line-height: 1.4;
+    margin-left: 190px;
+    margin-right: 190px;
+}
+
+footer{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.4;
+    margin-left: 190px;
+    margin-right: 190px;
+}
+
+.jumbotron p, h3{
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    color: rgb(51,51,51);
+    font-size: 23px;
+    font-family: Arial;
+}
