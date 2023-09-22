@@ -987,7 +987,7 @@ def verifyLogin():
             cursor.close()
 
             # Retrieve the company details
-            company_query = "SELECT c.name, j.jobLocation, salary, jobPosition, jobDesc FROM company c, job j, companyApplication ca, student s WHERE c.companyId = j.company AND ca.student = s.studentId AND ca.job = j.jobId AND s.studentId = %s AND ca.`status` = 'approved'"
+            company_query = "SELECT c.name, j.jobLocation, salary, jobPosition, jobDesc FROM company c, job j, companyApplication ca, student s WHERE c.companyId = j.companyId AND ca.student = s.studentId AND ca.job = j.jobId AND s.studentId = %s AND ca.`status` = 'approved'"
             cursor = db_conn.cursor()
             cursor.execute(company_query, (user[0]))
             companyDetails = cursor.fetchone()
