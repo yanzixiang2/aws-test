@@ -7,7 +7,7 @@ from pymysql import connections
 import boto3
 from config import *
 import datetime
-from weasyprint import HTML
+
 
 app = Flask(__name__)
 app.static_folder = 'static'  # The name of your static folder
