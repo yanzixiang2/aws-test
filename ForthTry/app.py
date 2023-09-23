@@ -71,10 +71,51 @@ def add_emp():
 def login_company():
     return render_template('LoginCompany.html')
 
-@app.route('/company_dashboard')
+@app.route("/company_dashboard", methods=['GET', 'POST'])
 def company_dashboard():
-    # Render the company dashboard
-    return render_template('companyDashboard.html')
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        # Assuming you have a database connection named db_conn
+        cursor = db_conn.cursor()
+
+        try:
+            # Query to check email and password for a company
+            select_sql = "SELECT * FROM company WHERE email = %s AND password = %s"
+            cursor.execute(select_sql, (email, password,))
+            company = cursor.fetchone()
+
+            if company:
+                session['company'] = company
+
+                # Fetch other required data for the company dashboard
+                # Modify the SQL queries based on your data structure and requirements
+
+                # Example query to fetch employees for the company
+                select_employees_sql = "SELECT * FROM employees WHERE company_id = %s"
+                cursor.execute(select_employees_sql, (company['company_id'],))
+                employees = cursor.fetchall()
+
+                return render_template('company_dashboard.html', company=company, employees=employees)
+
+            else:
+                return render_template('login.html', msg="Access Denied: Invalid email or password")
+
+        except Exception as e:
+            return str(e)
+
+        finally:
+            cursor.close()
+
+    return render_template('login.html', msg="")
+
+# Assuming you have a route for logging out
+@app.route("/logout")
+def logout():
+    # Clear the session to log out the user
+    session.clear()
+    return redirect("/")  # Redirect to the appropriate login page
     
 @app.route('/login_student', methods=['GET', 'POST'])
 def login_student():
