@@ -92,10 +92,10 @@ def company_dashboard():
             cursor.execute(select_employees_sql, (company['company_id'],))
             employees = cursor.fetchall()
 
-            return render_template('companyDashboard.html', company=company, employees=employees)
+        return render_template('companyDashboard.html', company=company, employees=employees)
 
-        else:
-            return render_template('LoginCompany.html', msg="Access Denied: Invalid email or password")
+    else:
+        return render_template('LoginCompany.html', msg="Access Denied: Invalid email or password")
 
     except Exception as e:
         return str(e)
