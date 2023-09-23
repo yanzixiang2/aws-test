@@ -88,9 +88,6 @@ def login_company():
         # Invalid login, redirect back to the login page with an error message
         return render_template('loginCompany.html', msg='Invalid email or password')
 
-@app.route('/company_dashboard', methods=['GET', 'POST'])
-def company_dashboard():
-    return render_templaye('companyDashboard.html')
 
 @app.route('/login_student', methods=['GET', 'POST'])
 def login_student():
