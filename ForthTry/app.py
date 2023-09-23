@@ -46,7 +46,7 @@ def register_company():
 @app.route("/addemp", methods=['POST'])
 def add_emp():
     try:
-        name = request.form['company_id']  # Assuming 'emp_id' corresponds to the company name
+        name = request.form['name']  # Assuming 'emp_id' corresponds to the company name
         password = request.form['password']
         about = request.form['about']  # Assuming 'last_name' corresponds to the about information
         address = request.form['address']  # Assuming 'first_name' corresponds to the company address
@@ -65,7 +65,7 @@ def add_emp():
         return "Error: Could not register the company."
 
     # Redirect to a success page or back to the registration page with a success message
-    return redirect(url_for('register_company'))
+    return render_template('RegisterCompany.html')
 
 @app.route('/login_company', methods=['GET', 'POST'])
 def login_company():
