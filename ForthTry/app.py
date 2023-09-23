@@ -43,6 +43,29 @@ def home():
 def register_company():
     return render_template('RegisterCompany.html')
 
+@app.route("/addemp", methods=['POST'])
+def add_emp():
+    try:
+        name = request.form['company_id']  # Assuming 'emp_id' corresponds to the company name
+        password = request.form['password']
+        about = request.form['about']  # Assuming 'last_name' corresponds to the about information
+        address = request.form['address']  # Assuming 'first_name' corresponds to the company address
+        email = request.form['email']  # Assuming 'location' corresponds to the company email
+        phone = request.form['phone']  # Assuming 'pri_skill' corresponds to the company phone
+        status = 'actived'  # Assuming the default status for a new company is 'active'
+
+        # Insert data into the database
+        insert_sql = "INSERT INTO company (name, password, about, address, email, phone, status) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        cursor = db_conn.cursor()
+        cursor.execute(insert_sql, (name, password, about, address, email, phone, status))
+        db_conn.commit()
+
+    except Exception as e:
+        db_conn.rollback()
+        return "Error: Could not register the company."
+
+    # Redirect to a success page or back to the registration page with a success message
+    return redirect(url_for('register_company'))
 
 @app.route('/login_company', methods=['GET', 'POST'])
 def login_company():
