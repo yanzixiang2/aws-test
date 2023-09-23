@@ -67,10 +67,30 @@ def add_emp():
     # Redirect to a success page or back to the registration page with a success message
     return render_template('RegisterCompany.html')
 
-@app.route('/login_company', methods=['GET', 'POST'])
+@app.route('/login_company', methods=['POST'])
 def login_company():
-    return render_template('LoginCompany.html')
+    email = request.form['email']
+    password = request.form['password']
 
+    # Check if the email and password match a record in the company table
+    # Perform the necessary authentication logic here
+
+    # For demonstration, let's assume a simple authentication based on email and password
+    cursor = db_conn.cursor()
+    cursor.execute("SELECT * FROM company WHERE email = %s AND password = %s", (email, password))
+    company = cursor.fetchone()
+    cursor.close()
+
+    if company:
+        # Successful login, redirect to a company dashboard or profile page
+        return render_template('companyDashboard.html')
+    else:
+        # Invalid login, redirect back to the login page with an error message
+        return render_template('companydashpany.html', msg='Invalid email or password')
+
+@app.route('/company_dashboard', methods=['GET', 'POST'])
+def company_dashboard():
+    return render_templaye('companyDashboard.html')
 
 @app.route('/login_student', methods=['GET', 'POST'])
 def login_student():
