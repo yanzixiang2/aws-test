@@ -53,7 +53,7 @@ def add_emp():
         email = request.form['email']  # Assuming 'location' corresponds to the company email
         phone = request.form['phone']  # Assuming 'pri_skill' corresponds to the company phone
         status = 'actived'  # Assuming the default status for a new company is 'active'
-        
+
         # Insert data into the database
         insert_sql = "INSERT INTO company (name, password, about, address, email, phone, status) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         cursor = db_conn.cursor()
@@ -65,7 +65,7 @@ def add_emp():
         return "Error: Could not register the company."
 
     # Redirect to a success page or back to the registration page with a success message
-return render_template('RegisterCompany.html')
+    return render_template('RegisterCompany.html')
 
 @app.route('/login_company')
 def login_company():
@@ -76,34 +76,39 @@ def company_dashboard():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        
-        select_sql = "SELECT * FROM company WHERE email = %s AND password = %s"
+
         # Assuming you have a database connection named db_conn
         cursor = db_conn.cursor()
 
         try:
+            # Query to check email and password for a company
+            select_sql = "SELECT * FROM company WHERE email = %s AND password = %s"
             cursor.execute(select_sql, (email, password,))
             company = cursor.fetchone()
 
+            if company:
+                session['company'] = company
+
+                # Fetch other required data for the company dashboard
                 # Modify the SQL queries based on your data structure and requirements
 
                 # Example query to fetch employees for the company
-            select_employees_sql = "SELECT * FROM employees WHERE company_id = %s"
-            cursor.execute(select_employees_sql, (company['company_id'],))
-            employees = cursor.fetchall()
+                select_employees_sql = "SELECT * FROM employees WHERE company_id = %s"
+                cursor.execute(select_employees_sql, (company['company_id'],))
+                employees = cursor.fetchall()
 
-        return render_template('companyDashboard.html', company=company, employees=employees)
+                return render_template('companyDashboard.html', company=company, employees=employees)
 
-    else:
-        return render_template('LoginCompany.html', msg="Access Denied: Invalid email or password")
+            else:
+                return render_template('LoginCompany.html', msg="Access Denied: Invalid email or password")
 
-    except Exception as e:
-        return str(e)
+        except Exception as e:
+            return str(e)
 
-    finally:
-        cursor.close()
+        finally:
+            cursor.close()
 
-return render_template('LoginCompany.html', msg="")
+    return render_template('LoginCompany.html', msg="")
 
 # Assuming you have a route for logging out
 @app.route("/logout")
