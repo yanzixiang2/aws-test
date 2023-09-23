@@ -64,10 +64,10 @@ def add_emp():
                                                          'Key': emp_image_file_name_in_s3},
                                                  ExpiresIn=1000)  # Adjust the expiration time as needed
         # Insert data into the database
-        insert_sql = "INSERT INTO company (name, password, about, address, email, phone, status) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        cursor = db_conn.cursor()
-        cursor.execute(insert_sql, (name, password, about, address, email, phone, status))
-        db_conn.commit()
+            insert_sql = "INSERT INTO company (name, password, about, address, email, phone, status) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            cursor = db_conn.cursor()
+            cursor.execute(insert_sql, (name, password, about, address, email, phone, status))
+            db_conn.commit()
 
     except Exception as e:
         db_conn.rollback()
