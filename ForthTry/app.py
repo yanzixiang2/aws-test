@@ -86,7 +86,7 @@ def login_company():
         return redirect(url_for('company_dashboard'))
     else:
         # Invalid login, redirect back to the login page with an error message
-        return render_template('loginCompany.html', msg='Invalid email or password')
+        return render_template('LoginCompany.html', msg='Invalid email or password')
 
 
 @app.route('/company_dashboard')
