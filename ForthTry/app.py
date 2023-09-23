@@ -69,12 +69,12 @@ def add_emp():
             cursor.execute(insert_sql, (name, password, about, address, email, phone, status))
             db_conn.commit()
 
-    except Exception as e:
-        db_conn.rollback()
-        return "Error: Could not register the company."
+        except Exception as e:
+            db_conn.rollback()
+            return "Error: Could not register the company."
 
-    # Redirect to a success page or back to the registration page with a success message
-    return render_template('RegisterCompany.html')
+        # Redirect to a success page or back to the registration page with a success message
+        return render_template('RegisterCompany.html')
 
 @app.route('/login_company')
 def login_company():
