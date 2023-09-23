@@ -69,25 +69,24 @@ def add_emp():
 
 @app.route('/login_company', methods=['GET','POST'])
 def login_company():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
+     email = request.form['email']
+     password = request.form['password']
 
     # Check if the email and password match a record in the company table
     # Perform the necessary authentication logic here
 
     # For demonstration, let's assume a simple authentication based on email and password
-        cursor = db_conn.cursor()
-        cursor.execute("SELECT * FROM company WHERE email = %s AND password = %s", (email, password))
-        company = cursor.fetchone()
-        cursor.close()
+     cursor = db_conn.cursor()
+     cursor.execute("SELECT * FROM company WHERE email = %s AND password = %s", (email, password))
+     company = cursor.fetchone()
+     cursor.close()
 
-        if company:
+     if company:
         # Successful login, redirect to a company dashboard or profile page
-            return redirect(url_for('company_dashboard'))
-        else:
+         return redirect(url_for('company_dashboard'))
+     else:
         # Invalid login, redirect back to the login page with an error message
-            return render_template('LoginCompany.html', msg='Invalid email or password')
+          return render_template('LoginCompany.html', msg='Invalid email or password')
 
 @app.route('/company_dashboard')
 def company_dashboard():
