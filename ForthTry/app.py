@@ -53,7 +53,16 @@ def add_emp():
         email = request.form['email']  # Assuming 'location' corresponds to the company email
         phone = request.form['phone']  # Assuming 'pri_skill' corresponds to the company phone
         status = 'actived'  # Assuming the default status for a new company is 'active'
+        
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+        s3 = boto3.client('s3')
+        bucket_name = custombucket
 
+        try:
+            response = s3.generate_presigned_url('get_object',
+                                                 Params={'Bucket': bucket_name,
+                                                         'Key': emp_image_file_name_in_s3},
+                                                 ExpiresIn=1000)  # Adjust the expiration time as needed
         # Insert data into the database
         insert_sql = "INSERT INTO company (name, password, about, address, email, phone, status) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         cursor = db_conn.cursor()
@@ -76,19 +85,28 @@ def company_dashboard():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-
+        
+        select_sql = "SELECT * FROM company WHERE email = %s AND password = %s"
         # Assuming you have a database connection named db_conn
         cursor = db_conn.cursor()
 
         try:
-            # Query to check email and password for a company
-            select_sql = "SELECT * FROM company WHERE email = %s AND password = %s"
             cursor.execute(select_sql, (email, password,))
             company = cursor.fetchone()
 
             if company:
                 session['company'] = company
 
+                lec_image_file_name_in_s3 = "lec-id-" + \
+                    str(lecturer[0]) + "_image_file"
+                s3 = boto3.client('s3')
+                bucket_name = custombucket
+
+                try:
+                    response = s3.generate_presigned_url('get_object',
+                                                         Params={'Bucket': bucket_name,
+                                                                 'Key': lec_image_file_name_in_s3},
+                                                         ExpiresIn=1000)  # Adjust the expiration time as needed
                 # Fetch other required data for the company dashboard
                 # Modify the SQL queries based on your data structure and requirements
 
