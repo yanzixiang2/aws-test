@@ -74,7 +74,7 @@ def add_emp():
             return "Error: Could not register the company."
 
     # Redirect to a success page or back to the registration page with a success message
-    return render_template('RegisterCompany.html')
+return render_template('RegisterCompany.html')
 
 @app.route('/login_company')
 def login_company():
