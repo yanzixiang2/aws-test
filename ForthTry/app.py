@@ -1,13 +1,13 @@
 from flask import render_template, make_response
 from flask import redirect
 import mimetypes
-from flask import Flask, render_template, request, redirect, url_for, session, send_file
+from flask import Flask, render_template, request, redirect, url_for, session, send_file, jsonify
 from botocore.exceptions import ClientError
 from pymysql import connections
 import boto3
+import json #important DO NOT REMOVE
 from config import *
 import datetime
-
 
 app = Flask(__name__)
 app.static_folder = 'static'  # The name of your static folder
@@ -32,97 +32,584 @@ table = 'employee'
 @app.route('/')
 def index():
     return render_template('home.html', number=1)
-    
+
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('home.html')
 
 
+# company side
+@app.route('/logoutCompany')
+def logoutCompany():  
+    if 'id' in session:  
+        session.pop('logedInCompany',None)  
+        return render_template('home.html')  
+    else:  
+        return render_template('home.html') 
+
 @app.route('/register_company')
 def register_company():
     return render_template('RegisterCompany.html')
 
-@app.route("/addemp", methods=['POST'])
-def add_emp():
-    try:
-        name = request.form['name']  # Assuming 'emp_id' corresponds to the company name
-        password = request.form['password']
-        about = request.form['about']  # Assuming 'last_name' corresponds to the about information
-        address = request.form['address']  # Assuming 'first_name' corresponds to the company address
-        email = request.form['email']  # Assuming 'location' corresponds to the company email
-        phone = request.form['phone']  # Assuming 'pri_skill' corresponds to the company phone
-        status = 'actived'  # Assuming the default status for a new company is 'active'
-
-        # Insert data into the database
-        insert_sql = "INSERT INTO company (name, password, about, address, email, phone, status) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        cursor = db_conn.cursor()
-        cursor.execute(insert_sql, (name, password, about, address, email, phone, status))
-        db_conn.commit()
-
-    except Exception as e:
-        db_conn.rollback()
-        return "Error: Could not register the company."
-
-    # Redirect to a success page or back to the registration page with a success message
-    return render_template('RegisterCompany.html')
-
-@app.route('/login_company', methods=['GET', 'POST'])
-def login_company():
-    return render_template('LoginCompany.html')
-
-@app.route("/company_dashboard", methods=['GET', 'POST'])
-def company_dashboard():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-
-        # Assuming you have a database connection named db_conn
-        cursor = db_conn.cursor()
-
-        try:
-            # Query to check email and password for a company
-            select_sql = "SELECT * FROM company WHERE email = %s AND password = %s"
-            cursor.execute(select_sql, (email, password,))
-            company = cursor.fetchone()
-
-            if company:
-                session['company'] = company
-
-                # Fetch other required data for the company dashboard
-                # Modify the SQL queries based on your data structure and requirements
-
-                # Example query to fetch employees for the company
-                select_employees_sql = "SELECT * FROM employees WHERE company_id = %s"
-                cursor.execute(select_employees_sql, (company['company_id'],))
-                employees = cursor.fetchall()
-
-                return render_template('companyDashboard.html', company=company, employees=employees)
-
-            else:
-                return render_template('LoginCompany.html', msg="Access Denied: Invalid email or password")
-
-        except Exception as e:
-            return str(e)
-
-        finally:
-            cursor.close()
-
-    return render_template('LoginCompany.html', msg="")
-
-# Assuming you have a route for logging out
-@app.route("/logout")
-def logout():
-    # Clear the session to log out the user
-    session.clear()
-    return redirect("/")  # Redirect to the appropriate login page
-    
-@app.route('/login_student', methods=['GET', 'POST'])
+@app.route('/login_student')
 def login_student():
     return render_template('LoginStudent.html')
 
-# Navigation to Student Home Page
+@app.route('/publish_job')
+def publish_job():
+    data_company = passCompSession().get_json()
+    comp_name = data_company.get('comp_name', '')
+    return render_template('PublishJob.html', name=comp_name)
 
+@app.route('/companyViewApplication')
+def companyViewApplication():
+    data_company = passCompSession().get_json()
+    comp_name = data_company.get('comp_name', '')
+    currentCompany=str(session['logedInCompany'])
+
+    active_filter = request.args.get('filter', default='All')
+
+    if active_filter != 'All':
+        select_sql = f"SELECT * FROM companyApplication ca JOIN job j ON ca.job = j.jobId WHERE j.company LIKE '%{currentCompany}%' AND STATUS LIKE '%{active_filter}%'"
+    else:
+        select_sql = f"SELECT * FROM companyApplication ca JOIN job j ON ca.job = j.jobId WHERE j.company LIKE '%{currentCompany}%'"
+
+    cursor = db_conn.cursor()
+
+    try:
+        cursor.execute(select_sql)
+        jobApplication = cursor.fetchall()  # Fetch all students
+        company_application_list = []
+        for application in jobApplication:
+            applicationId = application[0]
+            applicationDateTime = application[1]
+            applicationStatus = application[2]
+            applicationJob = application[4]
+
+            select_sql = f"SELECT s.studentId, s.studentName, s.mobileNumber, s.gender, s.address, s.email, s.level, s.programme, s.cohort FROM student s JOIN companyApplication ca ON s.studentId LIKE ca.student WHERE ca.applicationId LIKE '%{applicationId}%'"
+            cursor = db_conn.cursor()
+            cursor.execute(select_sql)
+            studentInfo = cursor.fetchall()
+            
+            for student in studentInfo:
+                stud_id = student[0]
+                stud_name = student[1]
+                stud_phone = student[2]
+                stud_gender = student[3]
+                stud_address = student[4]
+                stud_email = student[5]
+                stud_level = student[6]
+                stud_programme = student[7]
+                stud_cohort = student[8]
+                # Construct the S3 object key
+                # object_key = str(stud_id) + "_resume"
+                # # Generate a presigned URL for the S3 object
+                # s3_client = boto3.client('s3')
+                # try:
+                #     response = s3_client.generate_presigned_url(
+                #         'get_object',
+                #         Params={
+                #             'Bucket': custombucket,
+                #             'Key': object_key,
+                #             'ResponseContentDisposition': 'inline',
+                #         },
+                #         ExpiresIn=3600  # Set the expiration time (in seconds) as needed
+                #     )
+                # except ClientError as e:
+                #     return str(e)
+                    # if e.response['Error']['Code'] == 'NoSuchKey':
+                    #     # If the resume does not exist, return a page with a message
+                    #     return render_template('home.html')
+                    # else:
+                    #     return str(e)
+
+                select_sql = f"SELECT * FROM job WHERE jobId = {applicationJob}"
+                cursor = db_conn.cursor()
+                cursor.execute(select_sql)
+                jobInfo = cursor.fetchall()
+
+                for jobI in jobInfo:
+                    jobType = jobI[2]
+                    jobPosition = jobI[3]
+                    numOfOperating = jobI[9]
+
+                application_data = {
+                        "application_id" : applicationId,
+                        "application_datetime" : applicationDateTime.strftime("%d-%m-%Y %H:%M:%S"),
+                        "application_status" : applicationStatus,
+                        "stud_id": stud_id,
+                        "stud_name": stud_name,
+                        "stud_phone": stud_phone,
+                        "stud_gender": stud_gender,
+                        "stud_address": stud_address,
+                        "stud_email": stud_email,
+                        "stud_level": stud_level,
+                        "stud_programme": stud_programme,
+                        "stud_cohort": stud_cohort,
+                        "jobType": jobType,
+                        "jobPosition" : jobPosition,
+                        "numOfOperating" : numOfOperating,
+                        # "stud_resume": response,
+                    }
+                company_application_list.append(application_data)  
+        return render_template('ViewCompanyApplication.html', name=comp_name, applicationData = company_application_list, active_filter=active_filter)
+    except Exception as e:
+        return str(e)
+    
+@app.route('/compViewResume', methods=['POST'])
+def compViewResume():
+    studentId = request.form['view_resume_btn']
+
+    # Construct the S3 object key
+    object_key = f"resume/{studentId}_resume"
+
+    # Generate a presigned URL for the S3 object
+    s3_client = boto3.client('s3')
+
+    try:
+        response = s3_client.generate_presigned_url(
+            'get_object',
+            Params={
+                'Bucket': custombucket,
+                'Key': object_key,
+                'ResponseContentDisposition': 'inline',
+            },
+            ExpiresIn=3600  # Set the expiration time (in seconds) as needed
+        )
+    except ClientError as e:
+        if e.response['Error']['Code'] == 'NoSuchKey':
+            # If the resume does not exist, return a page with a message
+            return render_template('no_resume_found.html')
+        else:
+            return str(e)
+        
+    return redirect(response)
+
+@app.route('/compUpdateJobStatus', methods=['POST'])
+def compUpdateJobStatus():
+    job_id = request.form['close_application_button']
+    update_sql = "UPDATE job SET numOfOperating = 0 WHERE jobId=%s"
+    cursor = db_conn.cursor()
+    
+    cursor.execute(update_sql, job_id)
+    db_conn.commit()
+    cursor.close()
+
+    currentCompany = str(session['logedInCompany'])
+    data_company = passCompSession().get_json()
+    comp_name = data_company.get('comp_name', '')
+
+    select_sql = f"SELECT * FROM job WHERE company = '{currentCompany}'"
+    cursor = db_conn.cursor()
+    
+    try:
+        cursor.execute(select_sql)
+        jobInfo = cursor.fetchall() 
+        job_list = []
+        for jobData in jobInfo:
+            
+            job_data = {
+                "jobId" : jobData[0],
+                "publishDate" : jobData[1].strftime("%d-%m-%Y %H:%M:%S"),
+                "jobType" : jobData[2],
+                "jobPosition" : jobData[3],
+                "qualificationLevel" : jobData[4],
+                "jobDesc" : jobData[5],
+                "jobRequirement" : jobData[6],
+                "jobLocation" : jobData[7],
+                "salary" : f"RM {jobData[8]:.2f}",
+                "numOfOperating" : jobData[9],
+                "industry" : jobData[11],
+                }           
+            job_list.append(job_data)  
+        # if action == 'drop':
+        #  return render_template('DropStudent.html', application_list=company_application_list,id=id)
+
+        # if action =='pickUp': 
+        #  return render_template('PickUpStudent.html', application_list=company_application_list)
+        # print(job_list)
+        # return render_template('home.html')
+        return render_template('CompanyViewManageJob.html', name=comp_name, jobData = job_list)
+    except Exception as e:
+        return str(e)
+
+@app.route('/companyViewManageJob')
+def companyViewManageJob():
+    data_company = passCompSession().get_json()
+    comp_name = data_company.get('comp_name', '')
+    currentCompany = str(session['logedInCompany'])
+
+    active_filter = request.args.get('filter', default='All')
+    
+    if active_filter == 'All':
+        select_sql = f"SELECT * FROM job WHERE company = '{currentCompany}'"
+    elif active_filter == 'Opening':
+        select_sql = f"SELECT * FROM job WHERE company = '{currentCompany}' AND numOfOperating != 0"  
+    else:
+        select_sql = f"SELECT * FROM job WHERE company = '{currentCompany}' AND numOfOperating = 0"
+    
+    cursor = db_conn.cursor()
+    
+    try:
+        cursor.execute(select_sql)
+        jobInfo = cursor.fetchall() 
+        job_list = []
+        for jobData in jobInfo:
+            
+            job_data = {
+                "jobId" : jobData[0],
+                "publishDate" : jobData[1].strftime("%d-%m-%Y %H:%M:%S"),
+                "jobType" : jobData[2],
+                "jobPosition" : jobData[3],
+                "qualificationLevel" : jobData[4],
+                "jobDesc" : jobData[5],
+                "jobRequirement" : jobData[6],
+                "jobLocation" : jobData[7],
+                "salary" : f"RM {jobData[8]:.2f}",
+                "numOfOperating" : jobData[9],
+                "industry" : jobData[11],
+                }           
+            job_list.append(job_data)  
+        return render_template('CompanyViewManageJob.html', name=comp_name, jobData = job_list, active_filter=active_filter)
+    except Exception as e:
+        return str(e)
+
+@app.route('/compApproveJobApp', methods=['POST'])
+def compApproveJobApp():
+    application_id = request.form['approve_btn']
+    update_sql = "UPDATE companyApplication SET status = 'approved' WHERE applicationId=%s"
+    cursor = db_conn.cursor()
+
+    cursor.execute(update_sql, application_id)
+    db_conn.commit()
+    cursor.close()
+
+    select_sql = f"SELECT job FROM companyApplication WHERE applicationId = '{application_id}'"
+    cursor = db_conn.cursor()
+    cursor.execute(select_sql)
+    jobInfo = cursor.fetchall()
+    for jobData in jobInfo:
+        jobId = jobData[0]
+
+    update_sql = f"UPDATE job SET numOfOperating = numOfOperating - 1 WHERE jobId= '{jobId}'"
+    cursor = db_conn.cursor()
+    cursor.execute(update_sql)
+    db_conn.commit()
+    cursor.close()
+
+    return redirect(url_for('companyViewApplication', filter='All'))
+
+@app.route('/compRejectJobApp', methods=['POST'])
+def compRejectJobApp():
+    application_id = request.form['reject_btn']
+    update_sql = "UPDATE companyApplication SET status = 'rejected' WHERE applicationId=%s"
+    cursor = db_conn.cursor()
+    
+    cursor.execute(update_sql, application_id)
+    db_conn.commit()
+    cursor.close()
+    return redirect(url_for('companyViewApplication', filter='All'))
+
+@app.route('/filterJobApp', methods=['POST'])
+def filterJobApp():
+    active_filter = request.form['filter']
+    return redirect(url_for('companyViewApplication', filter=active_filter))
+
+@app.route('/filterJobOpenStatus', methods=['POST'])
+def filterJobOpenStatus():
+    active_filter = request.form['filter']
+    return redirect(url_for('companyViewManageJob', filter=active_filter))
+
+@app.route('/login_company')
+def login_company():
+    return render_template('LoginCompany.html')
+
+def passCompSession():
+    currentCompany = str(session['logedInCompany'])
+    select_sql = "SELECT * FROM company WHERE companyId = %s"
+    cursor = db_conn.cursor()
+
+    try:
+        cursor.execute(select_sql, (currentCompany,))
+        company = cursor.fetchone()
+
+        return jsonify({
+        'comp_name': company[2],
+        'comp_about': company[3],
+        'comp_address': company[4],
+        'comp_email': company[5],
+        'comp_phone': company[6]
+        })
+            
+    except Exception as e:
+        print(str(e))
+
+    finally:
+        cursor.close()
+
+@app.route('/updateCompanyPassword', methods=['POST'])
+def updateCompanyPassword():
+    currentCompany = str(session['logedInCompany'])
+    password = request.form['new_password']
+    
+    update_sql = "UPDATE company SET password=%s WHERE companyId=%s"
+    cursor = db_conn.cursor()
+
+    try:
+        # Check if the company exists
+        check_sql = "SELECT * FROM company WHERE companyId = %s"
+        cursor.execute(check_sql, (currentCompany,))
+        existing_company = cursor.fetchone()
+
+        if not existing_company:
+            return "Company not found"
+        
+        cursor.execute(update_sql, (password, int(currentCompany)))
+        db_conn.commit()
+
+    finally:
+        cursor.close()
+        print("Company password updated successfully...")
+        return redirect(url_for('manage_company_profile', msg="Password updated successfully"))
+
+@app.route("/updateCompanyProfile", methods=['POST'])
+def updateCompanyProfile():
+    currentCompany = str(session['logedInCompany'])
+    companyName = request.form['company_name']
+    companyAbout = request.form['about_company']
+    companyPhone = request.form['company_phone']
+    companyEmail = request.form['company_email']
+    companyAddress = request.form['company_address']
+    company_image_file = request.files['company_image_file']
+
+    update_sql = "UPDATE company SET name=%s, about=%s, phone=%s, email=%s, address=%s WHERE companyId=%s"
+    cursor = db_conn.cursor()
+    
+    try:
+        # Check if the company exists
+        check_sql = "SELECT * FROM company WHERE companyId = %s"
+        cursor.execute(check_sql, (currentCompany,))
+        existing_company = cursor.fetchone()
+
+        if not existing_company:
+            return "Company not found"
+        
+        cursor.execute(update_sql, (companyName, companyAbout, companyPhone, companyEmail, companyAddress, int(currentCompany)))
+        db_conn.commit()
+        
+        if company_image_file.filename != "" : 
+            # Update image file in S3
+            comp_image_file_name_in_s3 = "company/"+"comp-id-" + str(currentCompany) + "_image_file"
+            s3 = boto3.resource('s3')
+
+            try:
+                print("Updating company profile...")
+                s3.Bucket(custombucket).put_object(Key=comp_image_file_name_in_s3, Body=company_image_file)
+                bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+                s3_location = (bucket_location.get('LocationConstraint'))
+
+                if s3_location is None:
+                    s3_location = ''
+                else:
+                    s3_location = '-' + s3_location
+
+                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                    s3_location,
+                    custombucket,
+                    comp_image_file_name_in_s3)
+
+            except Exception as e:
+                return str(e)
+            
+    finally:
+        cursor.close()
+        return redirect(url_for('manage_company_profile', msg="Profile updated successfully"))
+        
+@app.route('/manage_company_profile')
+def manage_company_profile():
+    currentCompany = str(session['logedInCompany'])
+    select_sql = "SELECT * FROM company WHERE companyId = %s"
+
+    chgPwdMsg = request.args.get('msg', default='')
+    cursor = db_conn.cursor()
+    try:
+        cursor.execute(select_sql, (currentCompany,))
+        company = cursor.fetchone()
+
+        if not company:
+            print("company not found")
+
+        comp_name = company[2]
+        comp_about = company[3]
+        comp_address = company[4]
+        comp_email = company[5]
+        comp_phone = company[6] 
+
+        # Fetch the S3 image URL based on comp_id
+        comp_image_file_name_in_s3 = "company/"+"comp-id-" + str(currentCompany) + "_image_file"
+        s3 = boto3.client('s3')
+        bucket_name = custombucket
+
+        try:
+            response = s3.generate_presigned_url('get_object',
+                                                 Params={'Bucket': bucket_name,
+                                                         'Key': comp_image_file_name_in_s3},
+                                                 ExpiresIn=7400)  # Adjust the expiration time as needed            
+            return render_template('EditCompanyProfile.html', name=comp_name, compName=comp_name, compLogo=response, compAbout=comp_about, compAddress=comp_address, compEmail=comp_email, compPhone=comp_phone, msg=chgPwdMsg)
+            
+        except Exception as e:
+            print(str(e))
+
+    except Exception as e:
+        print(str(e))
+
+    finally:
+        cursor.close()
+        
+@app.route("/addCompanyReg", methods=['POST'])
+def addCompanyRegistration():
+    try:
+        # Create a cursor
+        cursor = db_conn.cursor()
+        
+        # Execute the SELECT COUNT(*) query to get the total row count
+        select_sql = "SELECT COUNT(*) as total FROM company"      
+        cursor.execute(select_sql)
+        result = cursor.fetchone()
+        
+        cursor.close()
+
+        company_id = int(result[0]) + 1
+        company_name = request.form['company_name']
+        company_image_file = request.files['company_image_file']
+        about_company = request.form['about_company']
+        company_phone = request.form['company_phone']
+        company_address = request.form['company_address']
+        company_email = request.form['company_email']
+        password = request.form['password']
+
+        insert_sql = "INSERT INTO company VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        cursor = db_conn.cursor()
+
+        if company_image_file.filename == "":
+            return "Please select a file"
+        
+        try:
+                cursor.execute(insert_sql, (company_id, password, company_name, about_company, company_address, company_email, company_phone, "pending",))
+                db_conn.commit()
+                
+                # Uplaod image file in S3 #
+                comp_image_file_name_in_s3 = "company/"+"comp-id-" + str(company_id) + "_image_file"
+                s3 = boto3.resource('s3')
+
+                try:
+                    print("Data inserted in MySQL RDS... uploading image to S3...")
+                    s3.Bucket(custombucket).put_object(Key=comp_image_file_name_in_s3, Body=company_image_file)
+                    bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+                    s3_location = (bucket_location['LocationConstraint'])
+
+                    if s3_location is None:
+                        s3_location = ''
+                    else:
+                        s3_location = '-' + s3_location
+
+                    object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                        s3_location,
+                        custombucket,
+                        comp_image_file_name_in_s3)
+                    
+                    print("Company registration request submitted...")
+                    return render_template('home.html')
+                except Exception as e:
+                    return str(e)
+        
+        finally:
+            cursor.close()
+            return render_template('home.html')
+    
+    except Exception as e:
+        print(str(e))
+        print("failed get count...")
+        return render_template('home.html')
+    
+@app.route("/addJob", methods=['POST'])
+def addJob():
+    try:
+        # Create a cursor
+        cursor = db_conn.cursor()
+        
+        # Execute the SELECT COUNT(*) query to get the total row count
+        select_sql = "SELECT COUNT(*) as total FROM job"      
+        cursor.execute(select_sql)
+        result = cursor.fetchone()
+        
+        cursor.close()
+        current_datetime = datetime.datetime.now()
+
+        # Format the date as a string (e.g., "2023-09-09 10:15:30")
+        job_id = int(result[0]) + 1
+        publish_date = current_datetime.strftime('%Y-%m-%d %H:%M:%S')       
+        job_type = request.form['job_type']
+        job_position = request.form['job_position']
+        qualification_level = request.form['qualification_level']
+        job_description = request.form['job_description']
+        job_requirement = request.form['job_requirement']
+        job_location = request.form['job_location']
+        job_salary = request.form['job_salary']
+        job_openings = request.form['job_openings']       
+        job_industry = request.form['job_industry']
+        company = int(session['logedInCompany'])
+
+        insert_sql = "INSERT INTO job VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        cursor = db_conn.cursor()
+
+        try:
+            cursor.execute(insert_sql, (job_id, publish_date, job_type, job_position, qualification_level, job_description, job_requirement, job_location, job_salary, job_openings, company, job_industry,))
+            db_conn.commit()
+               
+        except Exception as e:
+                print(str(e))
+
+    except Exception as e:
+                print(str(e))
+
+    finally:
+        cursor.close()
+        print("Job published...")
+        data_company = passCompSession().get_json()
+        comp_name = data_company.get('comp_name', '')
+        return redirect(url_for('companyViewManageJob'))
+    
+@app.route("/loginCompany", methods=['GET','POST'])
+def loginCompany():
+    # if request.method == 'POST':
+    email = request.form['company_email']
+    password = request.form['password']
+
+    select_sql = "SELECT * FROM company WHERE email = %s AND password = %s"
+    cursor = db_conn.cursor()
+
+    try:
+        cursor.execute(select_sql, (email,password,))
+        company = cursor.fetchone()
+        
+        if company: 
+            if company[7] != 'pending': 
+                session['logedInCompany'] = str(company[0])
+                return redirect(url_for('companyViewApplication', filter='All'))
+                
+            else:
+                return render_template('LoginCompany.html', msg="Registration still in progress")
+        else:
+            return render_template('LoginCompany.html', msg="Access Denied : Invalid email or password")
+    except Exception as e:
+        return str(e)
+    finally:
+        cursor.close()
+
+
+# Navigation to Student Home Page
 
 @app.route('/student_home', methods=['GET', 'POST'])
 def student_home():
@@ -758,8 +1245,6 @@ def uploadSupportingDocuments():
 
 # View supporting documents
 # View acceptance form
-
-
 @app.route('/viewAcceptanceForm')
 def viewAcceptanceForm():
   # Retrieve student's ID
@@ -1097,7 +1582,7 @@ def verifyLogin():
 
 
 def get_db_connection():
-    customhost = 'employee.cgtpcksgf7rv.us-east-1.rds.amazonaws.com'
+    customhost = 'database-1.cdsilkd4knvu.us-east-1.rds.amazonaws.com'
     customuser = 'aws_user'
     custompass = 'Bait3273'
     customdb = 'employee'
@@ -1165,9 +1650,9 @@ def displayAllJobs():
                     company_id = job[10]
                     company_name = job[12]  # Extracted from the JOINed column
 
+                    
                     # Generate the S3 image URL using custombucket and customregion
-                    company_image_file_name_in_s3 = "comp-id-" + \
-                        str(company_id)+"_image_file"
+                    company_image_file_name_in_s3 = "company/"+"comp-id-" + str(company_id) + "_image_file"
                     s3 = boto3.client('s3', region_name=customregion)
                     bucket_name = custombucket
 
@@ -1247,8 +1732,7 @@ def display_job_details():
         company_phone = job[15]
 
         # Generate the S3 image URL using custombucket and customregion
-        company_image_file_name_in_s3 = "comp-id-" + \
-            str(company_id) + "_image_file"
+        company_image_file_name_in_s3 = "company/"+"comp-id-" + str(company_id) + "_image_file"
         s3 = boto3.client('s3', region_name=customregion)
         bucket_name = custombucket
 
@@ -2841,7 +3325,6 @@ def approveCompany():
 
     if action == 'approve':
         try:
-
             for conpanyId in selected_selected_companys:
                 update_sql = "UPDATE company SET status ='activeted' WHERE companyId=%s"
                 cursorApprove.execute(update_sql, (conpanyId))
