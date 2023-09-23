@@ -97,10 +97,10 @@ def company_dashboard():
                 cursor.execute(select_employees_sql, (company['company_id'],))
                 employees = cursor.fetchall()
 
-                return render_template('company_dashboard.html', company=company, employees=employees)
+                return render_template('companyDashboard.html', company=company, employees=employees)
 
             else:
-                return render_template('login.html', msg="Access Denied: Invalid email or password")
+                return render_template('LoginCompany.html', msg="Access Denied: Invalid email or password")
 
         except Exception as e:
             return str(e)
@@ -108,7 +108,7 @@ def company_dashboard():
         finally:
             cursor.close()
 
-    return render_template('login.html', msg="")
+    return render_template('LoginCompany.html', msg="")
 
 # Assuming you have a route for logging out
 @app.route("/logout")
