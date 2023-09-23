@@ -67,7 +67,7 @@ def add_emp():
     # Redirect to a success page or back to the registration page with a success message
     return render_template('RegisterCompany.html')
 
-@app.route('/login_company', methods=['POST'])
+@app.route('/login_company', methods=['GET','POST'])
 def login_company():
     email = request.form['email']
     password = request.form['password']
